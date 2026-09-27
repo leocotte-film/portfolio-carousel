@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIFACE Portfolio</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff;font-family:Arial,sans-serif}.stage{position:absolute;left:calc(50% + 75px);top:50%;width:0;height:0}.card{position:absolute;width:220px;height:150px;left:-110px;top:-75px;overflow:hidden;cursor:pointer;background:#eee;will-change:transform,opacity;box-shadow:0 8px 30px rgba(0,0,0,.08);transition:box-shadow .45s ease,filter .45s ease}.card img{width:100%;height:100%;display:block;object-fit:cover;transition:filter .45s ease}.card-info{position:absolute;left:0;right:0;bottom:0;padding:18px 14px 12px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.72));opacity:0;transition:opacity .45s ease;pointer-events:none}.card-title{font-size:11px;line-height:1.25;letter-spacing:.02em}.card-director{margin-top:4px;font-size:9px;line-height:1.25;opacity:.82}.card.hovered{box-shadow:0 20px 55px rgba(0,0,0,.18)}.card.hovered .card-info{opacity:1}.card.hovered img{filter:brightness(.86)}.arrow{position:fixed;top:50%;transform:translateY(-50%);border:0;background:transparent;color:#111;font-size:28px;font-weight:300;line-height:1;cursor:pointer;z-index:5000;opacity:.7;padding:10px}.arrow.left{left:24px}.arrow.right{right:24px}.hint{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#111;opacity:0;transition:opacity .8s ease;z-index:5000}.hint.visible{opacity:.45}@media(max-width:700px){.stage{left:50%}.card{width:170px;height:116px;left:-85px;top:-58px}.arrow.left{left:10px}.arrow.right{right:10px}}
+</style>
+</head>
+<body>
+<div class="stage" id="stage"></div>
+<button class="arrow left" id="left" aria-label="Previous">‹</button>
+<button class="arrow right" id="right" aria-label="Next">›</button>
+<div class="hint" id="hint">Scroll to explore</div>
+<script>
+const projects = [
+ {id:'1225990779',title:'THE GIRL FROM - A JOURNEY IN JAPAN',director:'Directed by Léo Cotte'},
+ {id:'1230217532',title:'PARFUMS DE MARLY - BLEU ROI',director:'Directed by Léo Cotte'},
+ {id:'1225628524',title:'GIRO - WITHE RUSH',director:'Directed by Léo Cotte'},
+ {id:'1225972567',title:'WARREN ZAÏRE-EMERY x LOUIS VUITTON',director:'Directed by BIFACE (Léo Cotte & Paul Montarlier)'},
+ {id:'1225623187',title:"LEBONCOIN - L'INVENTAIRE",director:'Directed by BIFACE (Léo Cotte & Paul Montarlier)'},
+ {id:'1225954902',title:'NOREPLY',director:'Directed by Léo Cotte'},
+ {id:'1225687477',title:"ST DUPONT - MY MOM'S BAG",director:'Directed by BIFACE (Léo Cotte & Paul Montarlier)'},
+ {id:'1225653579',title:'LIQUIDE IMAGINAIRE - IMAGINARIUM#1',director:'Directed by Léo Cotte'},
+ {id:'1225629634',title:'RILES - INTO THE FLAMME',director:'Directed by BIFACE (Léo Cotte & Paul Montarlier)'},
+ {id:'1225653580',title:'LIQUIDE IMAGINAIRE - IMAGINARIUM#2',director:'Directed by Léo Cotte'},
+ {id:'1225961767',title:'ST DUPONT - FW 2025',director:'Directed by Léo Cotte'},
+ {id:'1225920079',title:'ADIDAS RS15 Pro x Antoine Dupont',director:'Directed by BIFACE (Léo Cotte & Paul Montarlier)'},
+ {id:'1225626001',title:'LOUIS VUITTON - FRAGMENT OF HISTORY',director:'Directed by BIFACE (Léo Cotte & Paul Montarlier)'},
+ {id:'1225656943',title:'LIQUIDE IMAGINAIRE - BLANCHE BÊTE CAMPAIGN',director:'Directed by Léo Cotte'},
+ {id:'1225920065',title:"A L'INTERIEUR - ANTOINE DUPONT",director:'Directed by BIFACE (Léo Cotte & Paul Montarlier)'}
+];
+const stage=document.getElementById('stage');
+const hint=document.getElementById('hint');
+const count=projects.length;
+const targetIndex=12;
+const targetRotation=-(targetIndex/count)*Math.PI*2;
+let rotation=0;
+let scrollVelocity=0;
+let introStart=null;
+const introDuration=4200;
+const introStartScale=.35;
+const cards=[];
+projects.forEach((p,i)=>{
+ const card=document.createElement('div');
+ card.className='card';
+ card.innerHTML=`<img src="https://vumbnail.com/${p.id}.jpg" alt="${p.title}"><div class="card-info"><div class="card-title">${p.title}</div><div class="card-director">${p.director}</div></div>`;
+ card.addEventListener('mouseenter',()=>card.classList.add('hovered'));
+ card.addEventListener('mouseleave',()=>card.classList.remove('hovered'));
+ card.addEventListener('click',()=>window.open(`https://vimeo.com/${p.id}`,'_blank','noopener,noreferrer'));
+ stage.appendChild(card);
+ cards.push({el:card,index:i,hoverAmount:0});
+});
+function render(now=performance.now()){
+ if(introStart===null)introStart=now;
+ const progress=Math.min((now-introStart)/introDuration,1);
+ if(progress<1){
+   const eased=1-Math.pow(1-progress,3.8);
+   rotation=targetRotation+eased*Math.PI*2;
+ }else{
+   rotation+=scrollVelocity;
+   scrollVelocity*=.94;
+   if(Math.abs(scrollVelocity)<.000003)scrollVelocity=0;
+ }
+ const scaleIntro=progress<1 ? introStartScale+(1-introStartScale)*Math.min(progress*1.15,1) : 1;
+ const fade=Math.min(progress*2.2,1);
+ const width=window.innerWidth;
+ const radiusX=Math.max(620,Math.min(900,width*.43));
+ const radiusY=Math.max(85,Math.min(135,width*.065));
+ cards.forEach(card=>{
+   const angle=rotation+(card.index/count)*Math.PI*2;
+   const x=Math.sin(angle)*radiusX;
+   const y=-(1-Math.cos(angle))*radiusY;
+   const depth=(Math.cos(angle)+1)/2;
+   const scale=(.62+depth*.48)*scaleIntro;
+   const opacity=(.62+depth*.38)*fade;
+   const targetHover=card.el.classList.contains('hovered')?1:0;
+   card.hoverAmount+=(targetHover-card.hoverAmount)*.12;
+   const hoverScale=1+card.hoverAmount*.30;
+   card.el.style.transform=`translate3d(${x}px,${y}px,0) scale(${scale*hoverScale})`;
+   card.el.style.opacity=opacity;
+   card.el.style.zIndex=Math.round(depth*1000)+(card.hoverAmount>.01?1000:0);
+ });
+ hint.classList.toggle('visible',progress>=1);
+ requestAnimationFrame(render);
+}
+function nudge(direction){scrollVelocity+=direction*.025;scrollVelocity=Math.max(-.055,Math.min(.055,scrollVelocity));}
+document.getElementById('left').addEventListener('click',()=>nudge(1));
+document.getElementById('right').addEventListener('click',()=>nudge(-1));
+window.addEventListener('wheel',e=>{
+ if(introStart!==null && performance.now()-introStart<introDuration)return;
+ const delta=Math.max(-80,Math.min(80,e.deltaY));
+ scrollVelocity+=delta*.00045;
+ scrollVelocity=Math.max(-.055,Math.min(.055,scrollVelocity));
+},{passive:true});
+window.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')nudge(1);if(e.key==='ArrowRight')nudge(-1)});
+requestAnimationFrame(render);
+</script>
+</body>
+</html>
