@@ -269,7 +269,7 @@
     .contact-close {
       position: absolute;
       left: calc(50% + 145px);
-      top: calc(50% - 14px);
+      top: calc(50% - 28px);
       transform: translateY(-50%);
       width: 25px;
       height: 25px;
@@ -294,11 +294,6 @@
       background: #fff;
       pointer-events: none;
       opacity: 1;
-      transition: opacity 0.8s ease;
-    }
-
-    .intro-white.hidden {
-      opacity: 0;
     }
 
     /* MOBILE */
@@ -373,7 +368,7 @@
 
       .contact-close {
         left: calc(50% + 125px);
-        top: calc(50% - 14px);
+        top: calc(50% - 28px);
         font-size: 23px;
       }
     }
@@ -385,6 +380,7 @@
   <!-- HEADER -->
 
   <header>
+
     <div class="header-left">
 
       <a
@@ -413,12 +409,16 @@
     >
       LÉO COTTE
     </a>
+
   </header>
 
 
   <!-- CAROUSEL -->
 
-  <div class="stage" id="stage"></div>
+  <div
+    class="stage"
+    id="stage"
+  ></div>
 
 
   <!-- ARROWS -->
@@ -444,12 +444,15 @@
 
   <!-- HINT -->
 
-  <div class="hint" id="hint">
+  <div
+    class="hint"
+    id="hint"
+  >
     Scroll to explore
   </div>
 
 
-  <!-- CONTACT OVERLAY -->
+  <!-- CONTACT -->
 
   <div
     class="contact-overlay"
@@ -597,34 +600,56 @@
     ];
 
 
-    const stage = document.getElementById("stage");
-    const hint = document.getElementById("hint");
+    const stage =
+      document.getElementById("stage");
 
-    const contactButton = document.getElementById("contactButton");
-    const contactOverlay = document.getElementById("contactOverlay");
-    const contactClose = document.getElementById("contactClose");
-    const homeButton = document.getElementById("homeButton");
+    const hint =
+      document.getElementById("hint");
 
-    const arrowLeft = document.getElementById("arrowLeft");
-    const arrowRight = document.getElementById("arrowRight");
+    const introWhite =
+      document.getElementById("introWhite");
 
-    const introWhite = document.getElementById("introWhite");
+    const contactButton =
+      document.getElementById("contactButton");
+
+    const contactOverlay =
+      document.getElementById("contactOverlay");
+
+    const contactClose =
+      document.getElementById("contactClose");
+
+    const homeButton =
+      document.getElementById("homeButton");
+
+    const arrowLeft =
+      document.getElementById("arrowLeft");
+
+    const arrowRight =
+      document.getElementById("arrowRight");
 
 
     let cards = [];
 
     let rotation = 0;
+
     let scrollVelocity = 0;
 
     let introStartTime = null;
+
     let introFinished = false;
+
 
     const targetIndex = 12;
 
-    const count = projects.length;
+    const count =
+      projects.length;
+
 
     const targetRotation =
-      -(targetIndex / count) * Math.PI * 2;
+      -(targetIndex / count) *
+      Math.PI *
+      2;
+
 
     const introDuration = 4200;
 
@@ -633,62 +658,82 @@
 
     /* CREATE CARDS */
 
-    projects.forEach((project, index) => {
+    projects.forEach(
+      (project) => {
 
-      const card = document.createElement("div");
+        const card =
+          document.createElement("div");
 
-      card.className = "card";
+        card.className = "card";
 
-      card.innerHTML = `
-        <img
-          src="https://vumbnail.com/${project.id}.jpg"
-          alt="${project.title}"
-          draggable="false"
-        >
+        card.innerHTML = `
+          <img
+            src="https://vumbnail.com/${project.id}.jpg"
+            alt="${project.title}"
+            draggable="false"
+          >
 
-        <div class="card-info">
-          <div class="card-title">
-            ${project.title}
+          <div class="card-info">
+
+            <div class="card-title">
+              ${project.title}
+            </div>
+
+            <div class="card-director">
+              ${project.director}
+            </div>
+
           </div>
+        `;
 
-          <div class="card-director">
-            ${project.director}
-          </div>
-        </div>
-      `;
 
-      card.addEventListener("mouseenter", () => {
-        card.classList.add("hovered");
-      });
-
-      card.addEventListener("mouseleave", () => {
-        card.classList.remove("hovered");
-      });
-
-      card.addEventListener("click", () => {
-
-        window.open(
-          `https://vimeo.com/${project.id}`,
-          "_blank",
-          "noopener,noreferrer"
+        card.addEventListener(
+          "mouseenter",
+          () => {
+            card.classList.add("hovered");
+          }
         );
 
-      });
 
-      card.hoverAmount = 0;
+        card.addEventListener(
+          "mouseleave",
+          () => {
+            card.classList.remove("hovered");
+          }
+        );
 
-      stage.appendChild(card);
 
-      cards.push(card);
+        card.addEventListener(
+          "click",
+          () => {
 
-    });
+            window.open(
+              `https://vimeo.com/${project.id}`,
+              "_blank",
+              "noopener,noreferrer"
+            );
+
+          }
+        );
+
+
+        card.hoverAmount = 0;
+
+        stage.appendChild(card);
+
+        cards.push(card);
+
+      }
+    );
 
 
     /* RENDER */
 
     function render() {
 
-      const width = window.innerWidth;
+      const width =
+        window.innerWidth;
+
 
       const radiusX =
         Math.max(
@@ -698,6 +743,7 @@
             width * 0.43
           )
         );
+
 
       const radiusY =
         Math.max(
@@ -717,13 +763,16 @@
       if (!introFinished) {
 
         const elapsed =
-          performance.now() - introStartTime;
+          performance.now() -
+          introStartTime;
+
 
         const progress =
           Math.min(
             elapsed / introDuration,
             1
           );
+
 
         const eased =
           1 -
@@ -732,13 +781,25 @@
             3.8
           );
 
+
+        /*
+          EXACTLY ONE FULL REVOLUTION
+          AND FINAL POSITION ON
+          LOUIS VUITTON
+        */
+
         rotation =
           targetRotation +
-          eased * Math.PI * 2;
+          eased *
+          Math.PI *
+          2;
+
 
         globalScale =
           introStartScale +
-          (1 - introStartScale) * eased;
+          (1 - introStartScale) *
+          eased;
+
 
         introOpacity =
           Math.min(
@@ -746,15 +807,26 @@
             1
           );
 
+
+        /*
+          THE WHITE SCREEN NOW FADES
+          WHILE THE CAROUSEL IS VISIBLE
+        */
+
+        introWhite.style.opacity =
+          1 - eased;
+
+
         if (progress >= 1) {
 
           introFinished = true;
 
-          rotation = targetRotation;
+          rotation =
+            targetRotation;
 
           scrollVelocity = 0;
 
-          introWhite.classList.add("hidden");
+          introWhite.style.opacity = 0;
 
           hint.classList.add("visible");
 
@@ -762,98 +834,121 @@
 
       } else {
 
-        rotation += scrollVelocity;
+        rotation +=
+          scrollVelocity;
 
-        scrollVelocity *= 0.94;
+
+        scrollVelocity *=
+          0.94;
+
 
         if (
           Math.abs(scrollVelocity) <
           0.000003
         ) {
+
           scrollVelocity = 0;
+
         }
 
       }
 
 
-      cards.forEach((card, index) => {
+      cards.forEach(
+        (card, index) => {
 
-        const angle =
-          rotation +
-          (index / count) *
-          Math.PI *
-          2;
-
-        const x =
-          Math.sin(angle) *
-          radiusX;
-
-        const y =
-          -(1 - Math.cos(angle)) *
-          radiusY;
-
-        const depth =
-          (Math.cos(angle) + 1) / 2;
-
-        const scale =
-          0.62 +
-          depth * 0.48;
-
-        const opacity =
-          0.62 +
-          depth * 0.38;
+          const angle =
+            rotation +
+            (index / count) *
+            Math.PI *
+            2;
 
 
-        const targetHover =
-          card.classList.contains("hovered")
-            ? 1
-            : 0;
-
-        card.hoverAmount +=
-          (
-            targetHover -
-            card.hoverAmount
-          ) * 0.12;
+          const x =
+            Math.sin(angle) *
+            radiusX;
 
 
-        const hoverScale =
-          1 +
-          card.hoverAmount * 0.30;
+          const y =
+            -(1 - Math.cos(angle)) *
+            radiusY;
 
 
-        card.style.transform = `
-          translate3d(
-            ${x}px,
-            ${y}px,
-            0
-          )
-          scale(
-            ${scale *
-              hoverScale *
-              globalScale}
-          )
-        `;
-
-        card.style.opacity =
-          opacity * introOpacity;
-
-        card.style.zIndex =
-          Math.round(depth * 100) +
-          (
-            card.hoverAmount > 0.01
-              ? 1000
-              : 0
-          );
-
-      });
+          const depth =
+            (Math.cos(angle) + 1) / 2;
 
 
-      requestAnimationFrame(render);
+          const scale =
+            0.62 +
+            depth * 0.48;
+
+
+          const opacity =
+            0.62 +
+            depth * 0.38;
+
+
+          const targetHover =
+            card.classList.contains(
+              "hovered"
+            )
+              ? 1
+              : 0;
+
+
+          card.hoverAmount +=
+            (
+              targetHover -
+              card.hoverAmount
+            ) * 0.12;
+
+
+          const hoverScale =
+            1 +
+            card.hoverAmount * 0.30;
+
+
+          card.style.transform = `
+            translate3d(
+              ${x}px,
+              ${y}px,
+              0
+            )
+            scale(
+              ${scale *
+                hoverScale *
+                globalScale}
+            )
+          `;
+
+
+          card.style.opacity =
+            opacity *
+            introOpacity;
+
+
+          card.style.zIndex =
+            Math.round(
+              depth * 100
+            ) +
+            (
+              card.hoverAmount > 0.01
+                ? 1000
+                : 0
+            );
+
+        }
+      );
+
+
+      requestAnimationFrame(
+        render
+      );
 
     }
 
 
-    /* TRACKPAD / TOUCHPAD */
+    /* TRACKPAD */
 
     window.addEventListener(
       "wheel",
@@ -862,6 +957,7 @@
         if (!introFinished) {
           return;
         }
+
 
         const delta =
           Math.max(
@@ -872,8 +968,10 @@
             )
           );
 
+
         scrollVelocity +=
           delta * 0.00045;
+
 
         scrollVelocity =
           Math.max(
@@ -901,7 +999,8 @@
           return;
         }
 
-        scrollVelocity -= 0.025;
+        scrollVelocity -=
+          0.025;
 
       }
     );
@@ -915,7 +1014,8 @@
           return;
         }
 
-        scrollVelocity += 0.025;
+        scrollVelocity +=
+          0.025;
 
       }
     );
@@ -927,28 +1027,41 @@
       "keydown",
       (event) => {
 
+        if (
+          event.key === "Escape" &&
+          contactOverlay.classList.contains(
+            "active"
+          )
+        ) {
+
+          closeContact();
+
+          return;
+
+        }
+
+
         if (!introFinished) {
           return;
         }
 
-        if (event.key === "ArrowLeft") {
-
-          scrollVelocity -= 0.025;
-
-        }
-
-        if (event.key === "ArrowRight") {
-
-          scrollVelocity += 0.025;
-
-        }
 
         if (
-          event.key === "Escape" &&
-          contactOverlay.classList.contains("active")
+          event.key === "ArrowLeft"
         ) {
 
-          closeContact();
+          scrollVelocity -=
+            0.025;
+
+        }
+
+
+        if (
+          event.key === "ArrowRight"
+        ) {
+
+          scrollVelocity +=
+            0.025;
 
         }
 
@@ -960,14 +1073,18 @@
 
     function openContact() {
 
-      contactOverlay.classList.add("active");
+      contactOverlay.classList.add(
+        "active"
+      );
 
     }
 
 
     function closeContact() {
 
-      contactOverlay.classList.remove("active");
+      contactOverlay.classList.remove(
+        "active"
+      );
 
     }
 
@@ -998,9 +1115,13 @@
 
     /* START */
 
-    introStartTime = performance.now();
+    introStartTime =
+      performance.now();
 
-    requestAnimationFrame(render);
+
+    requestAnimationFrame(
+      render
+    );
 
   </script>
 
