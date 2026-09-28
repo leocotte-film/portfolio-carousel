@@ -27,6 +27,7 @@ body{
   position:relative;
 }
 
+
 /* =========================
    HEADER
 ========================= */
@@ -36,11 +37,15 @@ body{
   top:0;
   left:0;
   right:0;
+
   padding:28px 32px;
+
   display:flex;
   justify-content:space-between;
   align-items:flex-start;
+
   z-index:6000;
+
   pointer-events:none;
 }
 
@@ -60,46 +65,67 @@ body{
   gap:22px;
 }
 
-.contact,
-.work{
-  font-size:11px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-}
-
-.name{
+.work,
+.contact-button,
+.home-button{
   font-family:Arial,Helvetica,sans-serif;
+
   font-size:11px;
-  font-weight:700;
+  font-weight:400;
+
   letter-spacing:.08em;
+
   text-transform:uppercase;
+
+  color:#111;
 }
 
-/* =========================
-   CONTACT
-========================= */
+.work{
+  text-decoration:none;
+}
 
-.contact-button{
+.contact-button,
+.home-button{
   border:0;
   background:none;
+
   padding:0;
   margin:0;
-  color:#111;
-  font-family:Arial,Helvetica,sans-serif;
-  font-size:11px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
+
   cursor:pointer;
 }
 
-.contact-button:hover{
-  opacity:.55;
+.work:hover,
+.contact-button:hover,
+.home-button:hover{
+  opacity:.5;
 }
+
+.name{
+  color:#111;
+  text-decoration:none;
+
+  font-family:Arial,Helvetica,sans-serif;
+
+  font-size:11px;
+  font-weight:700;
+
+  letter-spacing:.08em;
+
+  text-transform:uppercase;
+}
+
+
+/* =========================
+   CONTACT PAGE
+========================= */
 
 .contact-page{
   position:fixed;
   inset:0;
+
   background:#fff;
+
   z-index:5500;
 
   display:flex;
@@ -121,20 +147,25 @@ body{
 
 .contact-content{
   text-align:center;
+
   display:flex;
   flex-direction:column;
   align-items:center;
+
   gap:10px;
 }
 
 .contact-email,
 .contact-instagram{
   color:#111;
+
   text-decoration:none;
 
   font-family:Arial,Helvetica,sans-serif;
+
   font-size:14px;
   font-weight:400;
+
   letter-spacing:.04em;
 
   transition:opacity .25s ease;
@@ -145,8 +176,26 @@ body{
   opacity:.5;
 }
 
+
+/* =========================
+   CONTACT NAVIGATION
+========================= */
+
+.contact-navigation{
+  position:fixed;
+
+  top:28px;
+  left:32px;
+
+  display:flex;
+  align-items:center;
+
+  gap:22px;
+}
+
 .contact-close{
   position:fixed;
+
   top:28px;
   right:32px;
 
@@ -156,8 +205,10 @@ body{
   color:#111;
 
   font-family:Arial,Helvetica,sans-serif;
+
   font-size:22px;
   font-weight:300;
+
   line-height:1;
 
   cursor:pointer;
@@ -169,17 +220,21 @@ body{
   opacity:.5;
 }
 
+
 /* =========================
    CAROUSEL
 ========================= */
 
 .stage{
   position:absolute;
+
   left:50%;
   top:50%;
+
   width:0;
   height:0;
 }
+
 
 /* =========================
    CARDS
@@ -206,8 +261,7 @@ body{
     0 8px 30px rgba(0,0,0,.08);
 
   transition:
-    box-shadow .45s ease,
-    filter .45s ease;
+    box-shadow .45s ease;
 }
 
 .card img{
@@ -233,10 +287,11 @@ body{
 
   color:#fff;
 
-  background:linear-gradient(
-    transparent,
-    rgba(0,0,0,.72)
-  );
+  background:
+    linear-gradient(
+      transparent,
+      rgba(0,0,0,.72)
+    );
 
   opacity:0;
 
@@ -248,6 +303,7 @@ body{
 
 .card-title{
   font-size:9px;
+
   line-height:1.25;
 
   letter-spacing:.015em;
@@ -259,6 +315,7 @@ body{
   margin-top:4px;
 
   font-size:8px;
+
   line-height:1.25;
 
   opacity:.82;
@@ -279,6 +336,7 @@ body{
   filter:brightness(.86);
 }
 
+
 /* =========================
    ARROWS
 ========================= */
@@ -297,6 +355,7 @@ body{
 
   font-size:28px;
   font-weight:300;
+
   line-height:1;
 
   cursor:pointer;
@@ -315,6 +374,7 @@ body{
 .arrow.right{
   right:24px;
 }
+
 
 /* =========================
    HINT
@@ -348,6 +408,7 @@ body{
   opacity:.45;
 }
 
+
 /* =========================
    MOBILE
 ========================= */
@@ -366,9 +427,9 @@ body{
     font-size:10px;
   }
 
-  .contact,
   .work,
-  .contact-button{
+  .contact-button,
+  .home-button{
     font-size:10px;
   }
 
@@ -404,6 +465,13 @@ body{
     right:10px;
   }
 
+  .contact-navigation{
+    top:20px;
+    left:20px;
+
+    gap:18px;
+  }
+
   .contact-close{
     top:20px;
     right:20px;
@@ -422,9 +490,7 @@ body{
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
+<!-- HEADER -->
 
 <header class="header">
 
@@ -436,17 +502,14 @@ body{
   href="https://vimeo.com/leocotte"
   target="_blank"
   rel="noopener noreferrer"
->
-  Work
-</a>
+>WORK</a>
+
 
 <button
   class="contact-button"
   id="contactButton"
   type="button"
->
-  Contact
-</button>
+>CONTACT</button>
 ```
 
   </div>
@@ -457,24 +520,28 @@ href="https://leocotte.com/"
 target="_blank"
 rel="noopener noreferrer"
 
->
-
-```
-Léo Cotte
-```
-
-  </a>
+> LÉO COTTE</a>
 
 </header>
 
-<!-- =========================
-     CONTACT PAGE
-========================= -->
+<!-- CONTACT PAGE -->
 
 <div
   class="contact-page"
   id="contactPage"
 >
+
+  <div class="contact-navigation">
+
+```
+<button
+  class="home-button"
+  id="homeButton"
+  type="button"
+>HOME</button>
+```
+
+  </div>
 
   <div class="contact-content">
 
@@ -485,6 +552,7 @@ Léo Cotte
 >
   leocotte.film@gmail.com
 </a>
+
 
 <a
   class="contact-instagram"
@@ -503,19 +571,11 @@ class="contact-close"
 id="contactClose"
 aria-label="Close contact"
 
->
-
-```
-×
-```
-
-  </button>
+> ×</button>
 
 </div>
 
-<!-- =========================
-     CAROUSEL
-========================= -->
+<!-- CAROUSEL -->
 
 <div
   class="stage"
@@ -527,18 +587,14 @@ class="arrow left"
 id="left"
 aria-label="Previous"
 
->
-
-‹ </button>
+> ‹</button>
 
 <button
 class="arrow right"
 id="right"
 aria-label="Next"
 
->
-
-› </button>
+> ›</button>
 
 <div
   class="hint"
@@ -672,9 +728,7 @@ const introStartScale = .35;
 const cards = [];
 
 
-/* =========================
-   CONTACT
-========================= */
+/* CONTACT */
 
 const contactButton =
   document.getElementById(
@@ -691,6 +745,20 @@ const contactClose =
     'contactClose'
   );
 
+const homeButton =
+  document.getElementById(
+    'homeButton'
+  );
+
+
+function closeContact(){
+
+  contactPage.classList.remove(
+    'visible'
+  );
+
+}
+
 
 contactButton.addEventListener(
   'click',
@@ -704,25 +772,25 @@ contactButton.addEventListener(
 
 contactClose.addEventListener(
   'click',
-  ()=>{
-    contactPage.classList.remove(
-      'visible'
-    );
-  }
+  closeContact
+);
+
+
+homeButton.addEventListener(
+  'click',
+  closeContact
 );
 
 
 window.addEventListener(
   'keydown',
-  (event)=>{
+  event=>{
 
     if(
       event.key === 'Escape'
     ){
 
-      contactPage.classList.remove(
-        'visible'
-      );
+      closeContact();
 
     }
 
@@ -730,87 +798,88 @@ window.addEventListener(
 );
 
 
-/* =========================
-   CREATE CARDS
-========================= */
+/* CREATE CARDS */
 
-projects.forEach((p,i)=>{
+projects.forEach(
+  (p,i)=>{
 
-  const card =
-    document.createElement('div');
+    const card =
+      document.createElement(
+        'div'
+      );
 
-  card.className = 'card';
+    card.className =
+      'card';
 
 
-  card.innerHTML = `
+    card.innerHTML = `
 
-    <img
-      src="https://vumbnail.com/${p.id}.jpg"
-      alt="${p.title}"
-    >
+      <img
+        src="https://vumbnail.com/${p.id}.jpg"
+        alt="${p.title}"
+      >
 
-    <div class="card-info">
+      <div class="card-info">
 
-      <div class="card-title">
-        ${p.title}
+        <div class="card-title">
+          ${p.title}
+        </div>
+
+        <div class="card-director">
+          ${p.director}
+        </div>
+
       </div>
 
-      <div class="card-director">
-        ${p.director}
-      </div>
-
-    </div>
-
-  `;
+    `;
 
 
-  card.addEventListener(
-    'mouseenter',
-    ()=>{
-      card.classList.add(
-        'hovered'
-      );
-    }
-  );
+    card.addEventListener(
+      'mouseenter',
+      ()=>{
+        card.classList.add(
+          'hovered'
+        );
+      }
+    );
 
 
-  card.addEventListener(
-    'mouseleave',
-    ()=>{
-      card.classList.remove(
-        'hovered'
-      );
-    }
-  );
+    card.addEventListener(
+      'mouseleave',
+      ()=>{
+        card.classList.remove(
+          'hovered'
+        );
+      }
+    );
 
 
-  card.addEventListener(
-    'click',
-    ()=>{
-      window.open(
-        `https://vimeo.com/${p.id}`,
-        '_blank',
-        'noopener,noreferrer'
-      );
-    }
-  );
+    card.addEventListener(
+      'click',
+      ()=>{
+        window.open(
+          `https://vimeo.com/${p.id}`,
+          '_blank',
+          'noopener,noreferrer'
+        );
+      }
+    );
 
 
-  stage.appendChild(card);
+    stage.appendChild(card);
 
 
-  cards.push({
-    el:card,
-    index:i,
-    hoverAmount:0
-  });
+    cards.push({
+      el:card,
+      index:i,
+      hoverAmount:0
+    });
 
-});
+  }
+);
 
 
-/* =========================
-   RENDER
-========================= */
+/* RENDER */
 
 function render(
   now=performance.now()
@@ -1011,9 +1080,7 @@ function render(
 }
 
 
-/* =========================
-   NAVIGATION
-========================= */
+/* NAVIGATION */
 
 function nudge(
   direction
@@ -1051,9 +1118,7 @@ document
   );
 
 
-/* =========================
-   TRACKPAD
-========================= */
+/* TRACKPAD */
 
 window.addEventListener(
   'wheel',
@@ -1101,9 +1166,7 @@ window.addEventListener(
 );
 
 
-/* =========================
-   KEYBOARD
-========================= */
+/* KEYBOARD */
 
 window.addEventListener(
   'keydown',
@@ -1130,9 +1193,7 @@ window.addEventListener(
 );
 
 
-/* =========================
-   START
-========================= */
+/* START */
 
 requestAnimationFrame(
   render
