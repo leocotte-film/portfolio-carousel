@@ -1,623 +1,671 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Léo Cotte</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-* {
-  box-sizing: border-box;
-}
+  <title>LÉO COTTE</title>
 
-html,
-body {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #fff;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #000;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-body {
-  position: relative;
-}
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #fff;
+      color: #000;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-/* HEADER */
+    body {
+      position: relative;
+    }
 
-.header {
-  position: fixed;
-  top: 22px;
-  left: 24px;
-  right: 24px;
-  z-index: 6000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 11px;
-  letter-spacing: 0.04em;
-}
+    /* HEADER */
 
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-}
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      z-index: 5000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      pointer-events: none;
+    }
 
-.header a,
-.header button {
-  color: #000;
-  text-decoration: none;
-  font: inherit;
-  letter-spacing: inherit;
-}
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      pointer-events: auto;
+    }
 
-.work {
-  cursor: pointer;
-}
+    .header-link,
+    .name {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      line-height: 1;
+      text-decoration: none;
+      color: #000;
+      cursor: pointer;
+      letter-spacing: 0.01em;
+    }
 
-.contact-button {
-  border: 0;
-  background: none;
-  padding: 0;
-  cursor: pointer;
-}
+    .header-link {
+      font-weight: 400;
+      background: none;
+      border: none;
+      padding: 0;
+    }
 
-.name {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 11px;
-  font-weight: 700 !important;
-  color: #000;
-  cursor: pointer;
-}
+    .name {
+      font-weight: 700 !important;
+      color: #000;
+      pointer-events: auto;
+    }
 
-/* CONTACT PAGE */
+    /* CAROUSEL */
 
-.contact-page {
-  position: fixed;
-  inset: 0;
-  background: #fff;
-  z-index: 5000;
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity 0.45s ease,
-    visibility 0.45s ease;
-}
+    .stage {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 0;
+      height: 0;
+      transform-style: preserve-3d;
+    }
 
-.contact-page.visible {
-  opacity: 1;
-  visibility: visible;
-}
+    .card {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 220px;
+      height: 150px;
+      margin-left: -110px;
+      margin-top: -75px;
+      overflow: hidden;
+      cursor: pointer;
+      background: #eee;
+      transform-origin: center center;
+      will-change: transform, opacity;
+      transition:
+        box-shadow 0.45s ease,
+        filter 0.45s ease;
+    }
 
-.contact-content {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
+    .card img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(1);
+      transition: filter 0.45s ease;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
 
-.contact-label {
-  margin-bottom: 16px;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
+    .card.hovered {
+      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.18);
+    }
 
-.contact-email,
-.contact-instagram {
-  display: block;
-  color: #000;
-  text-decoration: none;
-  font-size: 16px;
-  line-height: 1.5;
-}
+    .card.hovered img {
+      filter: brightness(0.86);
+    }
 
-.contact-instagram {
-  margin-top: 4px;
-}
+    .card-info {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 16px 10px 10px;
+      color: #fff;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.68),
+        rgba(0, 0, 0, 0)
+      );
+      opacity: 0;
+      transition: opacity 0.45s ease;
+      pointer-events: none;
+    }
 
-/* CROIX */
+    .card.hovered .card-info {
+      opacity: 1;
+    }
 
-.contact-close {
-  position: absolute;
-  left: calc(50% + 145px);
-  top: calc(50% - 3px);
-  transform: translateY(-50%);
-  border: 0;
-  background: none;
-  padding: 0;
-  color: #000;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 24px;
-  font-weight: 300;
-  line-height: 1;
-  cursor: pointer;
-  z-index: 7000;
-}
+    .card-title {
+      font-size: 9px;
+      line-height: 1.2;
+      font-weight: 400;
+      white-space: nowrap;
+      margin-bottom: 3px;
+    }
 
-/* CAROUSEL */
+    .card-director {
+      font-size: 8px;
+      line-height: 1.2;
+      font-weight: 400;
+      white-space: nowrap;
+      opacity: 0.85;
+    }
 
-.stage {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 0;
-  height: 0;
-  perspective: 1200px;
-  transform-style: preserve-3d;
-}
+    /* ARROWS */
 
-.card {
-  position: absolute;
-  width: 220px;
-  height: 150px;
-  left: -110px;
-  top: -75px;
-  overflow: hidden;
-  background: #eee;
-  cursor: pointer;
-  transform-origin: center center;
-  will-change: transform, opacity;
-  transition:
-    box-shadow 0.45s ease,
-    filter 0.45s ease;
-}
+    .arrow {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 3000;
+      width: 40px;
+      height: 60px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #000;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 28px;
+      font-weight: 300;
+      line-height: 60px;
+      text-align: center;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.2s ease;
+    }
 
-.card img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: filter 0.45s ease;
-}
+    .arrow:hover {
+      opacity: 1;
+    }
 
-.card-info {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 18px 10px 9px;
-  color: #fff;
-  background: linear-gradient(
-    to top,
-    rgba(0,0,0,0.7),
-    rgba(0,0,0,0)
-  );
-  opacity: 0;
-  transition: opacity 0.45s ease;
-  pointer-events: none;
-}
+    .arrow-left {
+      left: 24px;
+    }
 
-.card-title {
-  font-size: 9px;
-  line-height: 1.2;
-  white-space: nowrap;
-}
+    .arrow-right {
+      right: 24px;
+    }
 
-.card-director {
-  margin-top: 3px;
-  font-size: 8px;
-  line-height: 1.2;
-  white-space: nowrap;
-}
+    /* HINT */
 
-.card.hovered {
-  box-shadow: 0 20px 55px rgba(0,0,0,0.18);
-}
+    .hint {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%);
+      z-index: 3000;
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #000;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      pointer-events: none;
+    }
 
-.card.hovered img {
-  filter: brightness(0.86);
-}
+    .hint.visible {
+      opacity: 0.5;
+    }
 
-.card.hovered .card-info {
-  opacity: 1;
-}
+    /* CONTACT */
 
-/* ARROWS */
+    .contact-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 5500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity 0.35s ease,
+        visibility 0.35s ease;
+    }
 
-.arrow {
-  position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2000;
-  border: 0;
-  background: transparent;
-  color: #000;
-  padding: 10px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 28px;
-  font-weight: 300;
-  line-height: 1;
-  opacity: 0.7;
-  cursor: pointer;
-}
+    .contact-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
 
-.arrow.left {
-  left: 14px;
-}
+    .contact-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
 
-.arrow.right {
-  right: 14px;
-}
+    .contact-label {
+      margin-bottom: 14px;
+      font-size: 11px;
+      line-height: 1;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
 
-/* HINT */
+    .contact-email,
+    .contact-instagram {
+      font-size: 16px;
+      line-height: 1.35;
+      font-weight: 400;
+      color: #000;
+      text-decoration: none;
+    }
 
-.hint {
-  position: fixed;
-  left: 50%;
-  bottom: 22px;
-  transform: translateX(-50%);
-  z-index: 2000;
-  font-size: 9px;
-  letter-spacing: 0.08em;
-  opacity: 0;
-  transition: opacity 0.8s ease;
-  pointer-events: none;
-}
+    .contact-instagram {
+      margin-top: 2px;
+    }
 
-.hint.visible {
-  opacity: 0.5;
-}
+    .contact-close {
+      position: absolute;
+      left: calc(50% + 145px);
+      top: calc(50% - 14px);
+      transform: translateY(-50%);
+      width: 25px;
+      height: 25px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: #000;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 25px;
+      text-align: center;
+      cursor: pointer;
+    }
 
-/* MOBILE */
+    /* INTRO */
 
-@media (max-width: 700px) {
+    .intro-white {
+      position: fixed;
+      inset: 0;
+      z-index: 4500;
+      background: #fff;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 0.8s ease;
+    }
 
-  .header {
-    top: 18px;
-    left: 18px;
-    right: 18px;
-    font-size: 10px;
-  }
+    .intro-white.hidden {
+      opacity: 0;
+    }
 
-  .header-left {
-    gap: 18px;
-  }
+    /* MOBILE */
 
-  .name {
-    font-size: 10px;
-    font-weight: 700 !important;
-  }
+    @media (max-width: 700px) {
 
-  .card {
-    width: 170px;
-    height: 116px;
-    left: -85px;
-    top: -58px;
-  }
+      header {
+        height: 52px;
+        padding: 0 18px;
+      }
 
-  .card-info {
-    padding: 14px 8px 9px;
-  }
+      .header-left {
+        gap: 22px;
+      }
 
-  .card-title {
-    font-size: 8px;
-  }
+      .header-link,
+      .name {
+        font-size: 10px;
+      }
 
-  .card-director {
-    font-size: 7px;
-  }
+      .name {
+        font-weight: 700 !important;
+      }
 
-  .contact-close {
-    left: calc(50% + 125px);
-    top: calc(50% - 3px);
-    font-size: 23px;
-  }
+      .card {
+        width: 170px;
+        height: 116px;
+        margin-left: -85px;
+        margin-top: -58px;
+      }
 
-  .contact-email,
-  .contact-instagram {
-    font-size: 14px;
-  }
+      .card-info {
+        padding: 14px 8px 9px;
+      }
 
-  .arrow {
-    font-size: 24px;
-  }
+      .card-title {
+        font-size: 8px;
+      }
 
-  .arrow.left {
-    left: 8px;
-  }
+      .card-director {
+        font-size: 7px;
+      }
 
-  .arrow.right {
-    right: 8px;
-  }
-}
-</style>
+      .arrow {
+        width: 32px;
+        height: 50px;
+        font-size: 23px;
+        line-height: 50px;
+      }
+
+      .arrow-left {
+        left: 7px;
+      }
+
+      .arrow-right {
+        right: 7px;
+      }
+
+      .hint {
+        bottom: 18px;
+        font-size: 8px;
+      }
+
+      .contact-email,
+      .contact-instagram {
+        font-size: 15px;
+      }
+
+      .contact-label {
+        font-size: 10px;
+      }
+
+      .contact-close {
+        left: calc(50% + 125px);
+        top: calc(50% - 14px);
+        font-size: 23px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header class="header">
+  <!-- HEADER -->
 
-  <div class="header-left">
+  <header>
+    <div class="header-left">
 
-    <a
-      class="work"
-      href="https://vimeo.com/leocotte"
-      target="_blank"
-      rel="noopener noreferrer"
-    >WORK</a>
+      <a
+        class="header-link"
+        href="https://vimeo.com/leocotte"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        WORK
+      </a>
 
-    <button
-      class="contact-button"
-      id="contactButton"
-      type="button"
-    >CONTACT</button>
+      <button
+        class="header-link"
+        id="contactButton"
+        type="button"
+      >
+        CONTACT
+      </button>
 
-  </div>
-
-  <a
-    class="name"
-    href="#"
-    id="nameHome"
-  >LÉO COTTE</a>
-
-</header>
-
-
-<!-- CONTACT -->
-
-<div class="contact-page" id="contactPage">
-
-  <div class="contact-content">
-
-    <div class="contact-label">
-      Contact
     </div>
 
     <a
-      class="contact-email"
-      href="mailto:leocotte.film@gmail.com"
-    >leocotte.film@gmail.com</a>
+      class="name"
+      href="#"
+      id="homeButton"
+    >
+      LÉO COTTE
+    </a>
+  </header>
 
-    <a
-      class="contact-instagram"
-      href="https://www.instagram.com/leo_cotte/"
-      target="_blank"
-      rel="noopener noreferrer"
-    >@leo_cotte</a>
+
+  <!-- CAROUSEL -->
+
+  <div class="stage" id="stage"></div>
+
+
+  <!-- ARROWS -->
+
+  <button
+    class="arrow arrow-left"
+    id="arrowLeft"
+    type="button"
+    aria-label="Previous"
+  >
+    ‹
+  </button>
+
+  <button
+    class="arrow arrow-right"
+    id="arrowRight"
+    type="button"
+    aria-label="Next"
+  >
+    ›
+  </button>
+
+
+  <!-- HINT -->
+
+  <div class="hint" id="hint">
+    Scroll to explore
+  </div>
+
+
+  <!-- CONTACT OVERLAY -->
+
+  <div
+    class="contact-overlay"
+    id="contactOverlay"
+  >
+
+    <div class="contact-content">
+
+      <div class="contact-label">
+        Contact
+      </div>
+
+      <a
+        class="contact-email"
+        href="mailto:leocotte.film@gmail.com"
+      >
+        leocotte.film@gmail.com
+      </a>
+
+      <a
+        class="contact-instagram"
+        href="https://www.instagram.com/leo_cotte/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        @leo_cotte
+      </a>
+
+    </div>
+
+    <button
+      class="contact-close"
+      id="contactClose"
+      type="button"
+      aria-label="Close"
+    >
+      ×
+    </button>
 
   </div>
 
-  <button
-    class="contact-close"
-    id="contactClose"
-    aria-label="Close contact"
-  >×</button>
 
-</div>
+  <!-- WHITE INTRO -->
 
-
-<!-- CAROUSEL -->
-
-<div
-  class="stage"
-  id="stage"
-></div>
-
-<button
-  class="arrow left"
-  id="left"
-  aria-label="Previous"
->‹</button>
-
-<button
-  class="arrow right"
-  id="right"
-  aria-label="Next"
->›</button>
-
-<div
-  class="hint"
-  id="hint"
->
-  Scroll to explore
-</div>
+  <div
+    class="intro-white"
+    id="introWhite"
+  ></div>
 
 
-<script>
+  <script>
 
-const projects = [
+    const projects = [
 
-  {
-    id: "1225990779",
-    title: "THE GIRL FROM - A JOURNEY IN JAPAN",
-    director: "Directed by Léo Cotte"
-  },
+      {
+        id: "1225990779",
+        title: "THE GIRL FROM - A JOURNEY IN JAPAN",
+        director: "Directed by Léo Cotte"
+      },
 
-  {
-    id: "1225628524",
-    title: "GIRO - WITHE RUSH",
-    director: "Directed by Léo Cotte"
-  },
+      {
+        id: "1225628524",
+        title: "GIRO - WITHE RUSH",
+        director: "Directed by Léo Cotte"
+      },
 
-  {
-    id: "1225972567",
-    title: "WARREN ZAÏRE-EMERY x LOUIS VUITTON",
-    director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
-  },
+      {
+        id: "1225972567",
+        title: "WARREN ZAÏRE-EMERY x LOUIS VUITTON",
+        director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
+      },
 
-  {
-    id: "1225623187",
-    title: "LEBONCOIN - L'INVENTAIRE",
-    director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
-  },
+      {
+        id: "1225623187",
+        title: "LEBONCOIN - L'INVENTAIRE",
+        director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
+      },
 
-  {
-    id: "1225954902",
-    title: "NOREPLY",
-    director: "Directed by Léo Cotte"
-  },
+      {
+        id: "1225954902",
+        title: "NOREPLY",
+        director: "Directed by Léo Cotte"
+      },
 
-  {
-    id: "1225687477",
-    title: "ST DUPONT - MY MOM'S BAG",
-    director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
-  },
+      {
+        id: "1225687477",
+        title: "ST DUPONT - MY MOM'S BAG",
+        director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
+      },
 
-  {
-    id: "1225653579",
-    title: "LIQUIDE IMAGINAIRE - IMAGINARIUM#1",
-    director: "Directed by Léo Cotte"
-  },
+      {
+        id: "1225653579",
+        title: "LIQUIDE IMAGINAIRE - IMAGINARIUM#1",
+        director: "Directed by Léo Cotte"
+      },
 
-  {
-    id: "1225629634",
-    title: "RILES - INTO THE FLAMME",
-    director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
-  },
+      {
+        id: "1225629634",
+        title: "RILES - INTO THE FLAMME",
+        director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
+      },
 
-  {
-    id: "1225653580",
-    title: "LIQUIDE IMAGINAIRE - IMAGINARIUM#2",
-    director: "Directed by Léo Cotte"
-  },
+      {
+        id: "1225653580",
+        title: "LIQUIDE IMAGINAIRE - IMAGINARIUM#2",
+        director: "Directed by Léo Cotte"
+      },
 
-  {
-    id: "1225961767",
-    title: "ST DUPONT - FW 2025",
-    director: "Directed by Léo Cotte"
-  },
+      {
+        id: "1225961767",
+        title: "ST DUPONT - FW 2025",
+        director: "Directed by Léo Cotte"
+      },
 
-  {
-    id: "1225920079",
-    title: "ADIDAS RS15 Pro x Antoine Dupont",
-    director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
-  },
+      {
+        id: "1225920079",
+        title: "ADIDAS RS15 Pro x Antoine Dupont",
+        director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
+      },
 
-  {
-    id: "1225656943",
-    title: "LIQUIDE IMAGINAIRE - BLANCHE BÊTE",
-    director: "Directed by Léo Cotte"
-  },
+      {
+        id: "1225656943",
+        title: "LIQUIDE IMAGINAIRE - BLANCHE BÊTE",
+        director: "Directed by Léo Cotte"
+      },
 
-  {
-    id: "1225626001",
-    title: "LOUIS VUITTON - FRAGMENT OF HISTORY",
-    director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
-  },
+      {
+        id: "1225626001",
+        title: "LOUIS VUITTON - FRAGMENT OF HISTORY",
+        director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
+      },
 
-  {
-    id: "1230217532",
-    title: "PARFUMS DE MARLY - BLEU ROI",
-    director: "Directed by Léo Cotte"
-  },
+      {
+        id: "1230217532",
+        title: "PARFUMS DE MARLY - BLEU ROI",
+        director: "Directed by Léo Cotte"
+      },
 
-  {
-    id: "1225920065",
-    title: "A L'INTERIEUR - ANTOINE DUPONT",
-    director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
-  }
+      {
+        id: "1225920065",
+        title: "A L'INTERIEUR - ANTOINE DUPONT",
+        director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
+      }
 
-];
-
-
-const stage =
-  document.getElementById("stage");
-
-const hint =
-  document.getElementById("hint");
-
-const contactButton =
-  document.getElementById("contactButton");
-
-const contactPage =
-  document.getElementById("contactPage");
-
-const contactClose =
-  document.getElementById("contactClose");
-
-const nameHome =
-  document.getElementById("nameHome");
+    ];
 
 
-function closeContact() {
+    const stage = document.getElementById("stage");
+    const hint = document.getElementById("hint");
 
-  contactPage.classList.remove(
-    "visible"
-  );
+    const contactButton = document.getElementById("contactButton");
+    const contactOverlay = document.getElementById("contactOverlay");
+    const contactClose = document.getElementById("contactClose");
+    const homeButton = document.getElementById("homeButton");
 
-}
+    const arrowLeft = document.getElementById("arrowLeft");
+    const arrowRight = document.getElementById("arrowRight");
 
-
-contactButton.addEventListener(
-  "click",
-  () => {
-
-    contactPage.classList.add(
-      "visible"
-    );
-
-  }
-);
+    const introWhite = document.getElementById("introWhite");
 
 
-contactClose.addEventListener(
-  "click",
-  closeContact
-);
+    let cards = [];
+
+    let rotation = 0;
+    let scrollVelocity = 0;
+
+    let introStartTime = null;
+    let introFinished = false;
+
+    const targetIndex = 12;
+
+    const count = projects.length;
+
+    const targetRotation =
+      -(targetIndex / count) * Math.PI * 2;
+
+    const introDuration = 4200;
+
+    const introStartScale = 0.35;
 
 
-nameHome.addEventListener(
-  "click",
-  event => {
+    /* CREATE CARDS */
 
-    event.preventDefault();
+    projects.forEach((project, index) => {
 
-    closeContact();
+      const card = document.createElement("div");
 
-  }
-);
+      card.className = "card";
 
+      card.innerHTML = `
+        <img
+          src="https://vumbnail.com/${project.id}.jpg"
+          alt="${project.title}"
+          draggable="false"
+        >
 
-window.addEventListener(
-  "keydown",
-  event => {
+        <div class="card-info">
+          <div class="card-title">
+            ${project.title}
+          </div>
 
-    if (event.key === "Escape") {
-      closeContact();
-    }
-
-  }
-);
-
-
-/* CREATE CARDS */
-
-const cards =
-  projects.map(project => {
-
-    const card =
-      document.createElement("div");
-
-    card.className = "card";
-
-    card.innerHTML = `
-      <img
-        src="https://vumbnail.com/${project.id}.jpg"
-        alt="${project.title}"
-      >
-
-      <div class="card-info">
-
-        <div class="card-title">
-          ${project.title}
+          <div class="card-director">
+            ${project.director}
+          </div>
         </div>
+      `;
 
-        <div class="card-director">
-          ${project.director}
-        </div>
+      card.addEventListener("mouseenter", () => {
+        card.classList.add("hovered");
+      });
 
-      </div>
-    `;
+      card.addEventListener("mouseleave", () => {
+        card.classList.remove("hovered");
+      });
 
-
-    card.addEventListener(
-      "click",
-      () => {
+      card.addEventListener("click", () => {
 
         window.open(
           `https://vimeo.com/${project.id}`,
@@ -625,391 +673,336 @@ const cards =
           "noopener,noreferrer"
         );
 
+      });
+
+      card.hoverAmount = 0;
+
+      stage.appendChild(card);
+
+      cards.push(card);
+
+    });
+
+
+    /* RENDER */
+
+    function render() {
+
+      const width = window.innerWidth;
+
+      const radiusX =
+        Math.max(
+          620,
+          Math.min(
+            900,
+            width * 0.43
+          )
+        );
+
+      const radiusY =
+        Math.max(
+          85,
+          Math.min(
+            135,
+            width * 0.065
+          )
+        );
+
+
+      let globalScale = 1;
+
+      let introOpacity = 1;
+
+
+      if (!introFinished) {
+
+        const elapsed =
+          performance.now() - introStartTime;
+
+        const progress =
+          Math.min(
+            elapsed / introDuration,
+            1
+          );
+
+        const eased =
+          1 -
+          Math.pow(
+            1 - progress,
+            3.8
+          );
+
+        rotation =
+          targetRotation +
+          eased * Math.PI * 2;
+
+        globalScale =
+          introStartScale +
+          (1 - introStartScale) * eased;
+
+        introOpacity =
+          Math.min(
+            progress * 2.2,
+            1
+          );
+
+        if (progress >= 1) {
+
+          introFinished = true;
+
+          rotation = targetRotation;
+
+          scrollVelocity = 0;
+
+          introWhite.classList.add("hidden");
+
+          hint.classList.add("visible");
+
+        }
+
+      } else {
+
+        rotation += scrollVelocity;
+
+        scrollVelocity *= 0.94;
+
+        if (
+          Math.abs(scrollVelocity) <
+          0.000003
+        ) {
+          scrollVelocity = 0;
+        }
+
+      }
+
+
+      cards.forEach((card, index) => {
+
+        const angle =
+          rotation +
+          (index / count) *
+          Math.PI *
+          2;
+
+        const x =
+          Math.sin(angle) *
+          radiusX;
+
+        const y =
+          -(1 - Math.cos(angle)) *
+          radiusY;
+
+        const depth =
+          (Math.cos(angle) + 1) / 2;
+
+        const scale =
+          0.62 +
+          depth * 0.48;
+
+        const opacity =
+          0.62 +
+          depth * 0.38;
+
+
+        const targetHover =
+          card.classList.contains("hovered")
+            ? 1
+            : 0;
+
+        card.hoverAmount +=
+          (
+            targetHover -
+            card.hoverAmount
+          ) * 0.12;
+
+
+        const hoverScale =
+          1 +
+          card.hoverAmount * 0.30;
+
+
+        card.style.transform = `
+          translate3d(
+            ${x}px,
+            ${y}px,
+            0
+          )
+          scale(
+            ${scale *
+              hoverScale *
+              globalScale}
+          )
+        `;
+
+        card.style.opacity =
+          opacity * introOpacity;
+
+        card.style.zIndex =
+          Math.round(depth * 100) +
+          (
+            card.hoverAmount > 0.01
+              ? 1000
+              : 0
+          );
+
+      });
+
+
+      requestAnimationFrame(render);
+
+    }
+
+
+    /* TRACKPAD / TOUCHPAD */
+
+    window.addEventListener(
+      "wheel",
+      (event) => {
+
+        if (!introFinished) {
+          return;
+        }
+
+        const delta =
+          Math.max(
+            -80,
+            Math.min(
+              80,
+              event.deltaY
+            )
+          );
+
+        scrollVelocity +=
+          delta * 0.00045;
+
+        scrollVelocity =
+          Math.max(
+            -0.055,
+            Math.min(
+              0.055,
+              scrollVelocity
+            )
+          );
+
+      },
+      {
+        passive: true
       }
     );
 
 
-    card.addEventListener(
-      "mouseenter",
+    /* ARROWS */
+
+    arrowLeft.addEventListener(
+      "click",
       () => {
 
-        card.classList.add(
-          "hovered"
-        );
+        if (!introFinished) {
+          return;
+        }
+
+        scrollVelocity -= 0.025;
 
       }
     );
 
 
-    card.addEventListener(
-      "mouseleave",
+    arrowRight.addEventListener(
+      "click",
       () => {
 
-        card.classList.remove(
-          "hovered"
-        );
+        if (!introFinished) {
+          return;
+        }
+
+        scrollVelocity += 0.025;
 
       }
     );
 
 
-    card.hoverAmount = 0;
+    /* KEYBOARD */
 
-    stage.appendChild(card);
+    window.addEventListener(
+      "keydown",
+      (event) => {
 
-    return card;
+        if (!introFinished) {
+          return;
+        }
 
-  });
+        if (event.key === "ArrowLeft") {
 
+          scrollVelocity -= 0.025;
 
-/* CAROUSEL */
+        }
 
-let rotation = 0;
+        if (event.key === "ArrowRight") {
 
-let scrollVelocity = 0;
+          scrollVelocity += 0.025;
 
-const count =
-  projects.length;
+        }
 
+        if (
+          event.key === "Escape" &&
+          contactOverlay.classList.contains("active")
+        ) {
 
-/*
-  Louis Vuitton est à l'index 12.
-  L'intro termine donc dessus.
-*/
+          closeContact();
 
-const targetIndex = 12;
+        }
 
-const targetRotation =
-  -(targetIndex / count) *
-  Math.PI * 2;
-
-
-const introDuration = 4200;
-
-const introStartScale = 0.35;
-
-let introStart =
-  performance.now();
-
-let introFinished = false;
-
-
-function render(now) {
-
-  const elapsed =
-    now - introStart;
-
-  const introProgress =
-    Math.min(
-      elapsed / introDuration,
-      1
+      }
     );
 
 
-  if (!introFinished) {
+    /* CONTACT */
 
-    const eased =
-      1 -
-      Math.pow(
-        1 - introProgress,
-        3.8
-      );
+    function openContact() {
 
-
-    rotation =
-      targetRotation +
-      eased * Math.PI * 2;
-
-
-    const introScale =
-      introStartScale +
-      (1 - introStartScale) *
-      eased;
-
-
-    stage.style.transform =
-      `scale(${introScale})`;
-
-
-    stage.style.opacity =
-      Math.min(
-        introProgress * 2.2,
-        1
-      );
-
-
-    if (introProgress >= 1) {
-
-      introFinished = true;
-
-      rotation =
-        targetRotation;
-
-      stage.style.transform =
-        "scale(1)";
-
-      stage.style.opacity =
-        "1";
-
-      hint.classList.add(
-        "visible"
-      );
+      contactOverlay.classList.add("active");
 
     }
 
-  } else {
 
-    rotation +=
-      scrollVelocity;
+    function closeContact() {
 
-    scrollVelocity *=
-      0.94;
-
-
-    if (
-      Math.abs(scrollVelocity) <
-      0.000003
-    ) {
-
-      scrollVelocity = 0;
+      contactOverlay.classList.remove("active");
 
     }
 
-  }
 
-
-  const width =
-    window.innerWidth;
-
-
-  const radiusX =
-    Math.max(
-      620,
-      Math.min(
-        900,
-        width * 0.43
-      )
+    contactButton.addEventListener(
+      "click",
+      openContact
     );
 
 
-  const radiusY =
-    Math.max(
-      85,
-      Math.min(
-        135,
-        width * 0.065
-      )
+    contactClose.addEventListener(
+      "click",
+      closeContact
     );
 
 
-  cards.forEach(
-    (card, index) => {
+    homeButton.addEventListener(
+      "click",
+      (event) => {
 
-      const angle =
-        (index / count) *
-        Math.PI * 2 +
-        rotation;
+        event.preventDefault();
 
+        closeContact();
 
-      const x =
-        Math.sin(angle) *
-        radiusX;
+      }
+    );
 
 
-      const y =
-        -(1 - Math.cos(angle)) *
-        radiusY;
+    /* START */
 
+    introStartTime = performance.now();
 
-      const depth =
-        (Math.cos(angle) + 1) /
-        2;
+    requestAnimationFrame(render);
 
-
-      const baseScale =
-        0.62 +
-        depth * 0.48;
-
-
-      const baseOpacity =
-        0.62 +
-        depth * 0.38;
-
-
-      const targetHover =
-        card.classList.contains(
-          "hovered"
-        )
-          ? 1
-          : 0;
-
-
-      card.hoverAmount +=
-        (
-          targetHover -
-          card.hoverAmount
-        ) * 0.12;
-
-
-      const hoverScale =
-        1 +
-        card.hoverAmount * 0.30;
-
-
-      const finalScale =
-        baseScale *
-        hoverScale;
-
-
-      card.style.transform =
-        `translate3d(
-          ${x}px,
-          ${y}px,
-          ${depth * 120}px
-        ) scale(${finalScale})`;
-
-
-      card.style.opacity =
-        baseOpacity;
-
-
-      card.style.zIndex =
-        Math.round(depth * 1000) +
-        (
-          card.hoverAmount > 0.01
-            ? 1000
-            : 0
-        );
-
-    }
-  );
-
-
-  requestAnimationFrame(
-    render
-  );
-
-}
-
-
-/* TRACKPAD */
-
-window.addEventListener(
-  "wheel",
-  event => {
-
-    if (!introFinished) return;
-
-
-    const delta =
-      Math.max(
-        -80,
-        Math.min(
-          80,
-          event.deltaY
-        )
-      );
-
-
-    scrollVelocity +=
-      delta * 0.00045;
-
-
-    scrollVelocity =
-      Math.max(
-        -0.055,
-        Math.min(
-          0.055,
-          scrollVelocity
-        )
-      );
-
-  },
-  {
-    passive: true
-  }
-);
-
-
-/* ARROWS */
-
-document
-  .getElementById("left")
-  .addEventListener(
-    "click",
-    () => {
-
-      if (!introFinished) return;
-
-      scrollVelocity -=
-        0.025;
-
-    }
-  );
-
-
-document
-  .getElementById("right")
-  .addEventListener(
-    "click",
-    () => {
-
-      if (!introFinished) return;
-
-      scrollVelocity +=
-        0.025;
-
-    }
-  );
-
-
-/* KEYBOARD */
-
-window.addEventListener(
-  "keydown",
-  event => {
-
-    if (!introFinished) return;
-
-
-    if (
-      event.key ===
-      "ArrowLeft"
-    ) {
-
-      scrollVelocity -=
-        0.025;
-
-    }
-
-
-    if (
-      event.key ===
-      "ArrowRight"
-    ) {
-
-      scrollVelocity +=
-        0.025;
-
-    }
-
-  }
-);
-
-
-window.addEventListener(
-  "resize",
-  () => {
-    /* Geometry recalculated automatically */
-  }
-);
-
-
-requestAnimationFrame(
-  render
-);
-
-</script>
+  </script>
 
 </body>
 </html>
