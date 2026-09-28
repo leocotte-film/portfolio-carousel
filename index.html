@@ -66,7 +66,11 @@ body {
 }
 
 .name {
-  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: 700 !important;
+  color: #000;
+  cursor: pointer;
 }
 
 /* CONTACT PAGE */
@@ -78,7 +82,9 @@ body {
   z-index: 5000;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.45s ease, visibility 0.45s ease;
+  transition:
+    opacity 0.45s ease,
+    visibility 0.45s ease;
 }
 
 .contact-page.visible {
@@ -119,7 +125,7 @@ body {
 .contact-close {
   position: absolute;
   left: calc(50% + 145px);
-  top: 50%;
+  top: calc(50% - 3px);
   transform: translateY(-50%);
   border: 0;
   background: none;
@@ -272,6 +278,11 @@ body {
     gap: 18px;
   }
 
+  .name {
+    font-size: 10px;
+    font-weight: 700 !important;
+  }
+
   .card {
     width: 170px;
     height: 116px;
@@ -293,6 +304,7 @@ body {
 
   .contact-close {
     left: calc(50% + 125px);
+    top: calc(50% - 3px);
     font-size: 23px;
   }
 
@@ -319,7 +331,9 @@ body {
 <body>
 
 <header class="header">
+
   <div class="header-left">
+
     <a
       class="work"
       href="https://vimeo.com/leocotte"
@@ -332,6 +346,7 @@ body {
       id="contactButton"
       type="button"
     >CONTACT</button>
+
   </div>
 
   <a
@@ -339,7 +354,9 @@ body {
     href="#"
     id="nameHome"
   >LÉO COTTE</a>
+
 </header>
+
 
 <!-- CONTACT -->
 
@@ -347,7 +364,9 @@ body {
 
   <div class="contact-content">
 
-    <div class="contact-label">Contact</div>
+    <div class="contact-label">
+      Contact
+    </div>
 
     <a
       class="contact-email"
@@ -371,9 +390,13 @@ body {
 
 </div>
 
+
 <!-- CAROUSEL -->
 
-<div class="stage" id="stage"></div>
+<div
+  class="stage"
+  id="stage"
+></div>
 
 <button
   class="arrow left"
@@ -387,7 +410,13 @@ body {
   aria-label="Next"
 >›</button>
 
-<div class="hint" id="hint">Scroll to explore</div>
+<div
+  class="hint"
+  id="hint"
+>
+  Scroll to explore
+</div>
+
 
 <script>
 
@@ -485,8 +514,12 @@ const projects = [
 
 ];
 
-const stage = document.getElementById("stage");
-const hint = document.getElementById("hint");
+
+const stage =
+  document.getElementById("stage");
+
+const hint =
+  document.getElementById("hint");
 
 const contactButton =
   document.getElementById("contactButton");
@@ -500,109 +533,166 @@ const contactClose =
 const nameHome =
   document.getElementById("nameHome");
 
+
 function closeContact() {
-  contactPage.classList.remove("visible");
+
+  contactPage.classList.remove(
+    "visible"
+  );
+
 }
 
-contactButton.addEventListener("click", () => {
-  contactPage.classList.add("visible");
-});
+
+contactButton.addEventListener(
+  "click",
+  () => {
+
+    contactPage.classList.add(
+      "visible"
+    );
+
+  }
+);
+
 
 contactClose.addEventListener(
   "click",
   closeContact
 );
 
-nameHome.addEventListener("click", event => {
-  event.preventDefault();
-  closeContact();
-});
 
-window.addEventListener("keydown", event => {
+nameHome.addEventListener(
+  "click",
+  event => {
 
-  if (event.key === "Escape") {
+    event.preventDefault();
+
     closeContact();
-  }
 
-});
+  }
+);
+
+
+window.addEventListener(
+  "keydown",
+  event => {
+
+    if (event.key === "Escape") {
+      closeContact();
+    }
+
+  }
+);
+
 
 /* CREATE CARDS */
 
-const cards = projects.map(project => {
+const cards =
+  projects.map(project => {
 
-  const card =
-    document.createElement("div");
+    const card =
+      document.createElement("div");
 
-  card.className = "card";
+    card.className = "card";
 
-  card.innerHTML = `
-    <img
-      src="https://vumbnail.com/${project.id}.jpg"
-      alt="${project.title}"
-    >
+    card.innerHTML = `
+      <img
+        src="https://vumbnail.com/${project.id}.jpg"
+        alt="${project.title}"
+      >
 
-    <div class="card-info">
+      <div class="card-info">
 
-      <div class="card-title">
-        ${project.title}
+        <div class="card-title">
+          ${project.title}
+        </div>
+
+        <div class="card-director">
+          ${project.director}
+        </div>
+
       </div>
+    `;
 
-      <div class="card-director">
-        ${project.director}
-      </div>
 
-    </div>
-  `;
+    card.addEventListener(
+      "click",
+      () => {
 
-  card.addEventListener("click", () => {
+        window.open(
+          `https://vimeo.com/${project.id}`,
+          "_blank",
+          "noopener,noreferrer"
+        );
 
-    window.open(
-      `https://vimeo.com/${project.id}`,
-      "_blank",
-      "noopener,noreferrer"
+      }
     );
 
+
+    card.addEventListener(
+      "mouseenter",
+      () => {
+
+        card.classList.add(
+          "hovered"
+        );
+
+      }
+    );
+
+
+    card.addEventListener(
+      "mouseleave",
+      () => {
+
+        card.classList.remove(
+          "hovered"
+        );
+
+      }
+    );
+
+
+    card.hoverAmount = 0;
+
+    stage.appendChild(card);
+
+    return card;
+
   });
 
-  card.addEventListener("mouseenter", () => {
-    card.classList.add("hovered");
-  });
-
-  card.addEventListener("mouseleave", () => {
-    card.classList.remove("hovered");
-  });
-
-  card.hoverAmount = 0;
-
-  stage.appendChild(card);
-
-  return card;
-
-});
 
 /* CAROUSEL */
 
 let rotation = 0;
+
 let scrollVelocity = 0;
 
-const count = projects.length;
+const count =
+  projects.length;
+
 
 /*
-  Louis Vuitton est maintenant à l'index 12.
-  Il reste donc parfaitement au centre
-  à la fin de l'intro.
+  Louis Vuitton est à l'index 12.
+  L'intro termine donc dessus.
 */
 
 const targetIndex = 12;
 
 const targetRotation =
-  -(targetIndex / count) * Math.PI * 2;
+  -(targetIndex / count) *
+  Math.PI * 2;
+
 
 const introDuration = 4200;
+
 const introStartScale = 0.35;
 
-let introStart = performance.now();
+let introStart =
+  performance.now();
+
 let introFinished = false;
+
 
 function render(now) {
 
@@ -615,6 +705,7 @@ function render(now) {
       1
     );
 
+
   if (!introFinished) {
 
     const eased =
@@ -624,17 +715,21 @@ function render(now) {
         3.8
       );
 
+
     rotation =
       targetRotation +
       eased * Math.PI * 2;
+
 
     const introScale =
       introStartScale +
       (1 - introStartScale) *
       eased;
 
+
     stage.style.transform =
       `scale(${introScale})`;
+
 
     stage.style.opacity =
       Math.min(
@@ -642,37 +737,50 @@ function render(now) {
         1
       );
 
+
     if (introProgress >= 1) {
 
       introFinished = true;
 
-      rotation = targetRotation;
+      rotation =
+        targetRotation;
 
       stage.style.transform =
         "scale(1)";
 
-      stage.style.opacity = "1";
+      stage.style.opacity =
+        "1";
 
-      hint.classList.add("visible");
+      hint.classList.add(
+        "visible"
+      );
+
     }
 
   } else {
 
-    rotation += scrollVelocity;
+    rotation +=
+      scrollVelocity;
 
-    scrollVelocity *= 0.94;
+    scrollVelocity *=
+      0.94;
+
 
     if (
       Math.abs(scrollVelocity) <
       0.000003
     ) {
+
       scrollVelocity = 0;
+
     }
 
   }
 
+
   const width =
     window.innerWidth;
+
 
   const radiusX =
     Math.max(
@@ -683,6 +791,7 @@ function render(now) {
       )
     );
 
+
   const radiusY =
     Math.max(
       85,
@@ -692,74 +801,96 @@ function render(now) {
       )
     );
 
-  cards.forEach((card, index) => {
 
-    const angle =
-      (index / count) *
-      Math.PI * 2 +
-      rotation;
+  cards.forEach(
+    (card, index) => {
 
-    const x =
-      Math.sin(angle) *
-      radiusX;
+      const angle =
+        (index / count) *
+        Math.PI * 2 +
+        rotation;
 
-    const y =
-      -(1 - Math.cos(angle)) *
-      radiusY;
 
-    const depth =
-      (Math.cos(angle) + 1) /
-      2;
+      const x =
+        Math.sin(angle) *
+        radiusX;
 
-    const baseScale =
-      0.62 +
-      depth * 0.48;
 
-    const baseOpacity =
-      0.62 +
-      depth * 0.38;
+      const y =
+        -(1 - Math.cos(angle)) *
+        radiusY;
 
-    const targetHover =
-      card.classList.contains("hovered")
-        ? 1
-        : 0;
 
-    card.hoverAmount +=
-      (
-        targetHover -
-        card.hoverAmount
-      ) * 0.12;
+      const depth =
+        (Math.cos(angle) + 1) /
+        2;
 
-    const hoverScale =
-      1 +
-      card.hoverAmount * 0.30;
 
-    const finalScale =
-      baseScale *
-      hoverScale;
+      const baseScale =
+        0.62 +
+        depth * 0.48;
 
-    card.style.transform =
-      `translate3d(
-        ${x}px,
-        ${y}px,
-        ${depth * 120}px
-      ) scale(${finalScale})`;
 
-    card.style.opacity =
-      baseOpacity;
+      const baseOpacity =
+        0.62 +
+        depth * 0.38;
 
-    card.style.zIndex =
-      Math.round(depth * 1000) +
-      (
-        card.hoverAmount > 0.01
-          ? 1000
-          : 0
-      );
 
-  });
+      const targetHover =
+        card.classList.contains(
+          "hovered"
+        )
+          ? 1
+          : 0;
 
-  requestAnimationFrame(render);
+
+      card.hoverAmount +=
+        (
+          targetHover -
+          card.hoverAmount
+        ) * 0.12;
+
+
+      const hoverScale =
+        1 +
+        card.hoverAmount * 0.30;
+
+
+      const finalScale =
+        baseScale *
+        hoverScale;
+
+
+      card.style.transform =
+        `translate3d(
+          ${x}px,
+          ${y}px,
+          ${depth * 120}px
+        ) scale(${finalScale})`;
+
+
+      card.style.opacity =
+        baseOpacity;
+
+
+      card.style.zIndex =
+        Math.round(depth * 1000) +
+        (
+          card.hoverAmount > 0.01
+            ? 1000
+            : 0
+        );
+
+    }
+  );
+
+
+  requestAnimationFrame(
+    render
+  );
+
 }
+
 
 /* TRACKPAD */
 
@@ -768,6 +899,7 @@ window.addEventListener(
   event => {
 
     if (!introFinished) return;
+
 
     const delta =
       Math.max(
@@ -778,8 +910,10 @@ window.addEventListener(
         )
       );
 
+
     scrollVelocity +=
       delta * 0.00045;
+
 
     scrollVelocity =
       Math.max(
@@ -796,6 +930,7 @@ window.addEventListener(
   }
 );
 
+
 /* ARROWS */
 
 document
@@ -806,10 +941,12 @@ document
 
       if (!introFinished) return;
 
-      scrollVelocity -= 0.025;
+      scrollVelocity -=
+        0.025;
 
     }
   );
+
 
 document
   .getElementById("right")
@@ -819,10 +956,12 @@ document
 
       if (!introFinished) return;
 
-      scrollVelocity += 0.025;
+      scrollVelocity +=
+        0.025;
 
     }
   );
+
 
 /* KEYBOARD */
 
@@ -832,22 +971,31 @@ window.addEventListener(
 
     if (!introFinished) return;
 
+
     if (
       event.key ===
       "ArrowLeft"
     ) {
-      scrollVelocity -= 0.025;
+
+      scrollVelocity -=
+        0.025;
+
     }
+
 
     if (
       event.key ===
       "ArrowRight"
     ) {
-      scrollVelocity += 0.025;
+
+      scrollVelocity +=
+        0.025;
+
     }
 
   }
 );
+
 
 window.addEventListener(
   "resize",
@@ -856,7 +1004,10 @@ window.addEventListener(
   }
 );
 
-requestAnimationFrame(render);
+
+requestAnimationFrame(
+  render
+);
 
 </script>
 
