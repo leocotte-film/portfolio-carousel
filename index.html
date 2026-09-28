@@ -118,15 +118,15 @@ body {
 
 .contact-close {
   position: absolute;
+  left: calc(50% + 145px);
   top: 50%;
-  right: 18%;
   transform: translateY(-50%);
   border: 0;
   background: none;
   padding: 0;
   color: #000;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 25px;
+  font-size: 24px;
   font-weight: 300;
   line-height: 1;
   cursor: pointer;
@@ -292,7 +292,7 @@ body {
   }
 
   .contact-close {
-    right: 12%;
+    left: calc(50% + 125px);
     font-size: 23px;
   }
 
@@ -346,6 +346,7 @@ body {
 <div class="contact-page" id="contactPage">
 
   <div class="contact-content">
+
     <div class="contact-label">Contact</div>
 
     <a
@@ -359,6 +360,7 @@ body {
       target="_blank"
       rel="noopener noreferrer"
     >@leo_cotte</a>
+
   </div>
 
   <button
@@ -498,7 +500,7 @@ window.addEventListener("keydown", event => {
 
 /* CREATE CARDS */
 
-const cards = projects.map((project, index) => {
+const cards = projects.map((project) => {
 
   const card = document.createElement("div");
   card.className = "card";
@@ -557,7 +559,8 @@ let introFinished = false;
 function render(now) {
 
   const elapsed = now - introStart;
-  let introProgress = Math.min(elapsed / introDuration, 1);
+  let introProgress =
+    Math.min(elapsed / introDuration, 1);
 
   if (!introFinished) {
 
@@ -578,6 +581,7 @@ function render(now) {
       Math.min(introProgress * 2.2, 1);
 
     if (introProgress >= 1) {
+
       introFinished = true;
       rotation = targetRotation;
       stage.style.transform = "scale(1)";
