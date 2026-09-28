@@ -238,42 +238,19 @@
     }
 
     .contact-content {
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
     }
 
-    .contact-heading {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      height: 13px;
-      margin-bottom: 14px;
-    }
-
     .contact-label {
+      margin-bottom: 14px;
       font-size: 11px;
       line-height: 1;
       font-weight: 400;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-    }
-
-    .contact-close {
-      width: 20px;
-      height: 20px;
-      padding: 0;
-      margin: 0;
-      transform: translateY(-1px);
-      border: none;
-      background: transparent;
-      color: #000;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 24px;
-      font-weight: 300;
-      line-height: 18px;
-      text-align: center;
-      cursor: pointer;
     }
 
     .contact-email,
@@ -287,6 +264,25 @@
 
     .contact-instagram {
       margin-top: 2px;
+    }
+
+    .contact-close {
+      position: absolute;
+      left: calc(50% + 145px);
+      top: calc(50% - 28px);
+      transform: translateY(-50%);
+      width: 25px;
+      height: 25px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: #000;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 25px;
+      text-align: center;
+      cursor: pointer;
     }
 
     /* INTRO */
@@ -361,20 +357,18 @@
         font-size: 8px;
       }
 
-      .contact-label {
-        font-size: 10px;
-      }
-
       .contact-email,
       .contact-instagram {
         font-size: 15px;
       }
 
-      .contact-heading {
-        gap: 9px;
+      .contact-label {
+        font-size: 10px;
       }
 
       .contact-close {
+        left: calc(50% + 125px);
+        top: calc(50% - 28px);
         font-size: 23px;
       }
     }
@@ -382,8 +376,6 @@
 </head>
 
 <body>
-
-  <!-- HEADER -->
 
   <header>
 
@@ -419,15 +411,11 @@
   </header>
 
 
-  <!-- CAROUSEL -->
-
   <div
     class="stage"
     id="stage"
   ></div>
 
-
-  <!-- ARROWS -->
 
   <button
     class="arrow arrow-left"
@@ -448,8 +436,6 @@
   </button>
 
 
-  <!-- HINT -->
-
   <div
     class="hint"
     id="hint"
@@ -458,8 +444,6 @@
   </div>
 
 
-  <!-- CONTACT -->
-
   <div
     class="contact-overlay"
     id="contactOverlay"
@@ -467,21 +451,8 @@
 
     <div class="contact-content">
 
-      <div class="contact-heading">
-
-        <div class="contact-label">
-          Contact
-        </div>
-
-        <button
-          class="contact-close"
-          id="contactClose"
-          type="button"
-          aria-label="Close"
-        >
-          ×
-        </button>
-
+      <div class="contact-label">
+        Contact
       </div>
 
       <a
@@ -502,10 +473,17 @@
 
     </div>
 
+    <button
+      class="contact-close"
+      id="contactClose"
+      type="button"
+      aria-label="Close"
+    >
+      ×
+    </button>
+
   </div>
 
-
-  <!-- WHITE INTRO -->
 
   <div
     class="intro-white"
@@ -792,11 +770,6 @@
           );
 
 
-        /*
-          ONE COMPLETE REVOLUTION
-          ENDING ON LOUIS VUITTON
-        */
-
         rotation =
           targetRotation +
           eased *
@@ -804,32 +777,16 @@
           2;
 
 
-        /*
-          START SMALL AND COME TOWARD
-          THE VIEWER
-        */
-
         globalScale =
           introStartScale +
           (1 - introStartScale) *
           eased;
 
 
-        /*
-          IMPORTANT:
-          THE CARDS ARE VISIBLE FROM
-          THE VERY BEGINNING
-        */
-
         introOpacity =
           0.35 +
           0.65 * eased;
 
-
-        /*
-          WHITE SCREEN FADES AWAY
-          WHILE THE CAROUSEL IS MOVING
-        */
 
         introWhite.style.opacity =
           1 - eased;
