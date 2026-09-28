@@ -9,22 +9,22 @@
 
 <style>
 
-*{
-  box-sizing:border-box;
+* {
+  box-sizing: border-box;
 }
 
 html,
-body{
-  margin:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  background:#fff;
-  font-family:Arial,Helvetica,sans-serif;
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #fff;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-body{
-  position:relative;
+body {
+  position: relative;
 }
 
 
@@ -32,87 +32,73 @@ body{
    HEADER
 ========================= */
 
-.header{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 
-  padding:28px 32px;
+  padding: 28px 32px;
 
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 
-  z-index:6000;
+  z-index: 6000;
 
-  pointer-events:none;
+  pointer-events: none;
 }
 
 .header a,
-.header button{
-  pointer-events:auto;
+.header button {
+  pointer-events: auto;
 }
 
-.header a{
-  color:#111;
-  text-decoration:none;
-}
-
-.header-left{
-  display:flex;
-  align-items:center;
-  gap:22px;
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 22px;
 }
 
 .work,
 .contact-button,
-.home-button{
-  font-family:Arial,Helvetica,sans-serif;
+.name {
+  font-family: Arial, Helvetica, sans-serif;
 
-  font-size:11px;
-  font-weight:400;
+  font-size: 11px;
+  font-weight: 400;
 
-  letter-spacing:.08em;
+  letter-spacing: 0.08em;
 
-  text-transform:uppercase;
+  text-transform: uppercase;
 
-  color:#111;
+  color: #111;
 }
 
-.work{
-  text-decoration:none;
+.work {
+  text-decoration: none;
 }
 
-.contact-button,
-.home-button{
-  border:0;
-  background:none;
+.contact-button {
+  border: 0;
+  background: none;
 
-  padding:0;
-  margin:0;
+  padding: 0;
+  margin: 0;
 
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .work:hover,
-.contact-button:hover,
-.home-button:hover{
-  opacity:.5;
+.contact-button:hover {
+  opacity: 0.5;
 }
 
-.name{
-  color:#111;
-  text-decoration:none;
+.name {
+  font-weight: 700;
+  text-decoration: none;
 
-  font-family:Arial,Helvetica,sans-serif;
-
-  font-size:11px;
-  font-weight:700;
-
-  letter-spacing:.08em;
-
-  text-transform:uppercase;
+  cursor: pointer;
 }
 
 
@@ -120,104 +106,116 @@ body{
    CONTACT PAGE
 ========================= */
 
-.contact-page{
-  position:fixed;
-  inset:0;
+.contact-page {
+  position: fixed;
+  inset: 0;
 
-  background:#fff;
+  background: #fff;
 
-  z-index:5500;
+  z-index: 5500;
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  opacity:0;
-  visibility:hidden;
+  opacity: 0;
+  visibility: hidden;
 
   transition:
-    opacity .45s ease,
-    visibility .45s ease;
+    opacity 0.45s ease,
+    visibility 0.45s ease;
 }
 
-.contact-page.visible{
-  opacity:1;
-  visibility:visible;
-}
-
-.contact-content{
-  text-align:center;
-
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-
-  gap:10px;
-}
-
-.contact-email,
-.contact-instagram{
-  color:#111;
-
-  text-decoration:none;
-
-  font-family:Arial,Helvetica,sans-serif;
-
-  font-size:14px;
-  font-weight:400;
-
-  letter-spacing:.04em;
-
-  transition:opacity .25s ease;
-}
-
-.contact-email:hover,
-.contact-instagram:hover{
-  opacity:.5;
+.contact-page.visible {
+  opacity: 1;
+  visibility: visible;
 }
 
 
 /* =========================
-   CONTACT NAVIGATION
+   CONTACT CONTENT
 ========================= */
 
-.contact-navigation{
-  position:fixed;
+.contact-content {
+  text-align: center;
 
-  top:28px;
-  left:32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  display:flex;
-  align-items:center;
+  gap: 18px;
 
-  gap:22px;
+  transform: translateY(0);
 }
 
-.contact-close{
-  position:fixed;
+.contact-label {
+  font-family: Arial, Helvetica, sans-serif;
 
-  top:28px;
-  right:32px;
+  font-size: 11px;
+  font-weight: 400;
 
-  border:0;
-  background:none;
+  letter-spacing: 0.12em;
 
-  color:#111;
+  text-transform: uppercase;
 
-  font-family:Arial,Helvetica,sans-serif;
+  color: #111;
 
-  font-size:22px;
-  font-weight:300;
-
-  line-height:1;
-
-  cursor:pointer;
-
-  padding:0;
+  margin-bottom: 8px;
 }
 
-.contact-close:hover{
-  opacity:.5;
+.contact-email,
+.contact-instagram {
+  color: #111;
+
+  text-decoration: none;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 16px;
+  font-weight: 400;
+
+  letter-spacing: 0.02em;
+
+  transition: opacity 0.25s ease;
+}
+
+.contact-email:hover,
+.contact-instagram:hover {
+  opacity: 0.5;
+}
+
+
+/* =========================
+   CLOSE
+========================= */
+
+.contact-close {
+  position: fixed;
+
+  top: 28px;
+  right: 32px;
+
+  border: 0;
+  background: none;
+
+  color: #111;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 24px;
+  font-weight: 300;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  padding: 4px;
+
+  z-index: 7000;
+}
+
+.contact-close:hover {
+  opacity: 0.5;
 }
 
 
@@ -225,14 +223,14 @@ body{
    CAROUSEL
 ========================= */
 
-.stage{
-  position:absolute;
+.stage {
+  position: absolute;
 
-  left:50%;
-  top:50%;
+  left: 50%;
+  top: 50%;
 
-  width:0;
-  height:0;
+  width: 0;
+  height: 0;
 }
 
 
@@ -240,100 +238,100 @@ body{
    CARDS
 ========================= */
 
-.card{
-  position:absolute;
+.card {
+  position: absolute;
 
-  width:220px;
-  height:150px;
+  width: 220px;
+  height: 150px;
 
-  left:-110px;
-  top:-75px;
+  left: -110px;
+  top: -75px;
 
-  overflow:hidden;
+  overflow: hidden;
 
-  cursor:pointer;
+  cursor: pointer;
 
-  background:#eee;
+  background: #eee;
 
-  will-change:transform,opacity;
+  will-change: transform, opacity;
 
   box-shadow:
-    0 8px 30px rgba(0,0,0,.08);
+    0 8px 30px rgba(0, 0, 0, 0.08);
 
   transition:
-    box-shadow .45s ease;
+    box-shadow 0.45s ease;
 }
 
-.card img{
-  width:100%;
-  height:100%;
+.card img {
+  width: 100%;
+  height: 100%;
 
-  display:block;
+  display: block;
 
-  object-fit:cover;
+  object-fit: cover;
 
   transition:
-    filter .45s ease;
+    filter 0.45s ease;
 }
 
-.card-info{
-  position:absolute;
+.card-info {
+  position: absolute;
 
-  left:0;
-  right:0;
-  bottom:0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 
-  padding:18px 10px 12px;
+  padding: 18px 10px 12px;
 
-  color:#fff;
+  color: #fff;
 
   background:
     linear-gradient(
       transparent,
-      rgba(0,0,0,.72)
+      rgba(0, 0, 0, 0.72)
     );
 
-  opacity:0;
+  opacity: 0;
 
   transition:
-    opacity .45s ease;
+    opacity 0.45s ease;
 
-  pointer-events:none;
+  pointer-events: none;
 }
 
-.card-title{
-  font-size:9px;
+.card-title {
+  font-size: 9px;
 
-  line-height:1.25;
+  line-height: 1.25;
 
-  letter-spacing:.015em;
+  letter-spacing: 0.015em;
 
-  white-space:nowrap;
+  white-space: nowrap;
 }
 
-.card-director{
-  margin-top:4px;
+.card-director {
+  margin-top: 4px;
 
-  font-size:8px;
+  font-size: 8px;
 
-  line-height:1.25;
+  line-height: 1.25;
 
-  opacity:.82;
+  opacity: 0.82;
 
-  white-space:nowrap;
+  white-space: nowrap;
 }
 
-.card.hovered{
+.card.hovered {
   box-shadow:
-    0 20px 55px rgba(0,0,0,.18);
+    0 20px 55px rgba(0, 0, 0, 0.18);
 }
 
-.card.hovered .card-info{
-  opacity:1;
+.card.hovered .card-info {
+  opacity: 1;
 }
 
-.card.hovered img{
-  filter:brightness(.86);
+.card.hovered img {
+  filter: brightness(0.86);
 }
 
 
@@ -341,38 +339,38 @@ body{
    ARROWS
 ========================= */
 
-.arrow{
-  position:fixed;
+.arrow {
+  position: fixed;
 
-  top:50%;
+  top: 50%;
 
-  transform:translateY(-50%);
+  transform: translateY(-50%);
 
-  border:0;
-  background:transparent;
+  border: 0;
+  background: transparent;
 
-  color:#111;
+  color: #111;
 
-  font-size:28px;
-  font-weight:300;
+  font-size: 28px;
+  font-weight: 300;
 
-  line-height:1;
+  line-height: 1;
 
-  cursor:pointer;
+  cursor: pointer;
 
-  z-index:5000;
+  z-index: 5000;
 
-  opacity:.7;
+  opacity: 0.7;
 
-  padding:10px;
+  padding: 10px;
 }
 
-.arrow.left{
-  left:24px;
+.arrow.left {
+  left: 24px;
 }
 
-.arrow.right{
-  right:24px;
+.arrow.right {
+  right: 24px;
 }
 
 
@@ -380,32 +378,32 @@ body{
    HINT
 ========================= */
 
-.hint{
-  position:fixed;
+.hint {
+  position: fixed;
 
-  bottom:22px;
-  left:50%;
+  bottom: 22px;
+  left: 50%;
 
-  transform:translateX(-50%);
+  transform: translateX(-50%);
 
-  font-size:10px;
+  font-size: 10px;
 
-  letter-spacing:.08em;
+  letter-spacing: 0.08em;
 
-  text-transform:uppercase;
+  text-transform: uppercase;
 
-  color:#111;
+  color: #111;
 
-  opacity:0;
+  opacity: 0;
 
   transition:
-    opacity .8s ease;
+    opacity 0.8s ease;
 
-  z-index:5000;
+  z-index: 5000;
 }
 
-.hint.visible{
-  opacity:.45;
+.hint.visible {
+  opacity: 0.45;
 }
 
 
@@ -413,73 +411,65 @@ body{
    MOBILE
 ========================= */
 
-@media(max-width:700px){
+@media (max-width: 700px) {
 
-  .header{
-    padding:20px;
+  .header {
+    padding: 20px;
   }
 
-  .header-left{
-    gap:18px;
+  .header-left {
+    gap: 18px;
   }
 
-  .name{
-    font-size:10px;
+  .name {
+    font-size: 10px;
   }
 
   .work,
-  .contact-button,
-  .home-button{
-    font-size:10px;
+  .contact-button {
+    font-size: 10px;
   }
 
-  .stage{
-    left:50%;
+  .stage {
+    left: 50%;
   }
 
-  .card{
-    width:170px;
-    height:116px;
+  .card {
+    width: 170px;
+    height: 116px;
 
-    left:-85px;
-    top:-58px;
+    left: -85px;
+    top: -58px;
   }
 
-  .card-info{
-    padding:14px 8px 9px;
+  .card-info {
+    padding: 14px 8px 9px;
   }
 
-  .card-title{
-    font-size:8px;
+  .card-title {
+    font-size: 8px;
   }
 
-  .card-director{
-    font-size:7px;
+  .card-director {
+    font-size: 7px;
   }
 
-  .arrow.left{
-    left:10px;
+  .arrow.left {
+    left: 10px;
   }
 
-  .arrow.right{
-    right:10px;
-  }
-
-  .contact-navigation{
-    top:20px;
-    left:20px;
-
-    gap:18px;
-  }
-
-  .contact-close{
-    top:20px;
-    right:20px;
+  .arrow.right {
+    right: 10px;
   }
 
   .contact-email,
-  .contact-instagram{
-    font-size:12px;
+  .contact-instagram {
+    font-size: 14px;
+  }
+
+  .contact-close {
+    top: 20px;
+    right: 20px;
   }
 
 }
@@ -516,9 +506,8 @@ body{
 
 <a
 class="name"
-href="https://leocotte.com/"
-target="_blank"
-rel="noopener noreferrer"
+href="#"
+id="nameHome"
 
 > LÉO COTTE</a>
 
@@ -531,28 +520,19 @@ rel="noopener noreferrer"
   id="contactPage"
 >
 
-  <div class="contact-navigation">
-
-```
-<button
-  class="home-button"
-  id="homeButton"
-  type="button"
->HOME</button>
-```
-
-  </div>
-
   <div class="contact-content">
 
 ```
+<div class="contact-label">
+  Contact
+</div>
+
 <a
   class="contact-email"
   href="mailto:leocotte.film@gmail.com"
 >
   leocotte.film@gmail.com
 </a>
-
 
 <a
   class="contact-instagram"
@@ -608,93 +588,93 @@ aria-label="Next"
 const projects = [
 
   {
-    id:'1225990779',
-    title:'THE GIRL FROM - A JOURNEY IN JAPAN',
-    director:'Directed by Léo Cotte'
+    id: '1225990779',
+    title: 'THE GIRL FROM - A JOURNEY IN JAPAN',
+    director: 'Directed by Léo Cotte'
   },
 
   {
-    id:'1230217532',
-    title:'PARFUMS DE MARLY - BLEU ROI',
-    director:'Directed by Léo Cotte'
+    id: '1230217532',
+    title: 'PARFUMS DE MARLY - BLEU ROI',
+    director: 'Directed by Léo Cotte'
   },
 
   {
-    id:'1225628524',
-    title:'GIRO - WITHE RUSH',
-    director:'Directed by Léo Cotte'
+    id: '1225628524',
+    title: 'GIRO - WITHE RUSH',
+    director: 'Directed by Léo Cotte'
   },
 
   {
-    id:'1225972567',
-    title:'WARREN ZAÏRE-EMERY x LOUIS VUITTON',
-    director:'Directed by BIFACE (Léo Cotte & Paul Montarlier)'
+    id: '1225972567',
+    title: 'WARREN ZAÏRE-EMERY x LOUIS VUITTON',
+    director: 'Directed by BIFACE (Léo Cotte & Paul Montarlier)'
   },
 
   {
-    id:'1225623187',
-    title:"LEBONCOIN - L'INVENTAIRE",
-    director:'Directed by BIFACE (Léo Cotte & Paul Montarlier)'
+    id: '1225623187',
+    title: "LEBONCOIN - L'INVENTAIRE",
+    director: 'Directed by BIFACE (Léo Cotte & Paul Montarlier)'
   },
 
   {
-    id:'1225954902',
-    title:'NOREPLY',
-    director:'Directed by Léo Cotte'
+    id: '1225954902',
+    title: 'NOREPLY',
+    director: 'Directed by Léo Cotte'
   },
 
   {
-    id:'1225687477',
-    title:"ST DUPONT - MY MOM'S BAG",
-    director:'Directed by BIFACE (Léo Cotte & Paul Montarlier)'
+    id: '1225687477',
+    title: "ST DUPONT - MY MOM'S BAG",
+    director: 'Directed by BIFACE (Léo Cotte & Paul Montarlier)'
   },
 
   {
-    id:'1225653579',
-    title:'LIQUIDE IMAGINAIRE - IMAGINARIUM#1',
-    director:'Directed by Léo Cotte'
+    id: '1225653579',
+    title: 'LIQUIDE IMAGINAIRE - IMAGINARIUM#1',
+    director: 'Directed by Léo Cotte'
   },
 
   {
-    id:'1225629634',
-    title:'RILES - INTO THE FLAMME',
-    director:'Directed by BIFACE (Léo Cotte & Paul Montarlier)'
+    id: '1225629634',
+    title: 'RILES - INTO THE FLAMME',
+    director: 'Directed by BIFACE (Léo Cotte & Paul Montarlier)'
   },
 
   {
-    id:'1225653580',
-    title:'LIQUIDE IMAGINAIRE - IMAGINARIUM#2',
-    director:'Directed by Léo Cotte'
+    id: '1225653580',
+    title: 'LIQUIDE IMAGINAIRE - IMAGINARIUM#2',
+    director: 'Directed by Léo Cotte'
   },
 
   {
-    id:'1225961767',
-    title:'ST DUPONT - FW 2025',
-    director:'Directed by Léo Cotte'
+    id: '1225961767',
+    title: 'ST DUPONT - FW 2025',
+    director: 'Directed by Léo Cotte'
   },
 
   {
-    id:'1225920079',
-    title:'ADIDAS RS15 Pro x Antoine Dupont',
-    director:'Directed by BIFACE (Léo Cotte & Paul Montarlier)'
+    id: '1225920079',
+    title: 'ADIDAS RS15 Pro x Antoine Dupont',
+    director: 'Directed by BIFACE (Léo Cotte & Paul Montarlier)'
   },
 
   {
-    id:'1225626001',
-    title:'LOUIS VUITTON - FRAGMENT OF HISTORY',
-    director:'Directed by BIFACE (Léo Cotte & Paul Montarlier)'
+    id: '1225626001',
+    title: 'LOUIS VUITTON - FRAGMENT OF HISTORY',
+    director: 'Directed by BIFACE (Léo Cotte & Paul Montarlier)'
   },
 
   {
-    id:'1225656943',
-    title:'LIQUIDE IMAGINAIRE - BLANCHE BÊTE',
-    director:'Directed by Léo Cotte'
+    id: '1225656943',
+    title: 'LIQUIDE IMAGINAIRE - BLANCHE BÊTE',
+    director: 'Directed by Léo Cotte'
   },
 
   {
-    id:'1225920065',
-    title:"A L'INTERIEUR - ANTOINE DUPONT",
-    director:'Directed by BIFACE (Léo Cotte & Paul Montarlier)'
+    id: '1225920065',
+    title: "A L'INTERIEUR - ANTOINE DUPONT",
+    director: 'Directed by BIFACE (Léo Cotte & Paul Montarlier)'
   }
 
 ];
@@ -723,12 +703,14 @@ let introStart = null;
 
 const introDuration = 4200;
 
-const introStartScale = .35;
+const introStartScale = 0.35;
 
 const cards = [];
 
 
-/* CONTACT */
+/* =========================
+   CONTACT
+========================= */
 
 const contactButton =
   document.getElementById(
@@ -745,13 +727,13 @@ const contactClose =
     'contactClose'
   );
 
-const homeButton =
+const nameHome =
   document.getElementById(
-    'homeButton'
+    'nameHome'
   );
 
 
-function closeContact(){
+function closeContact() {
 
   contactPage.classList.remove(
     'visible'
@@ -762,10 +744,12 @@ function closeContact(){
 
 contactButton.addEventListener(
   'click',
-  ()=>{
+  () => {
+
     contactPage.classList.add(
       'visible'
     );
+
   }
 );
 
@@ -776,19 +760,23 @@ contactClose.addEventListener(
 );
 
 
-homeButton.addEventListener(
+nameHome.addEventListener(
   'click',
-  closeContact
+  event => {
+
+    event.preventDefault();
+
+    closeContact();
+
+  }
 );
 
 
 window.addEventListener(
   'keydown',
-  event=>{
+  event => {
 
-    if(
-      event.key === 'Escape'
-    ){
+    if (event.key === 'Escape') {
 
       closeContact();
 
@@ -798,10 +786,12 @@ window.addEventListener(
 );
 
 
-/* CREATE CARDS */
+/* =========================
+   CREATE CARDS
+========================= */
 
 projects.forEach(
-  (p,i)=>{
+  (p, i) => {
 
     const card =
       document.createElement(
@@ -836,32 +826,38 @@ projects.forEach(
 
     card.addEventListener(
       'mouseenter',
-      ()=>{
+      () => {
+
         card.classList.add(
           'hovered'
         );
+
       }
     );
 
 
     card.addEventListener(
       'mouseleave',
-      ()=>{
+      () => {
+
         card.classList.remove(
           'hovered'
         );
+
       }
     );
 
 
     card.addEventListener(
       'click',
-      ()=>{
+      () => {
+
         window.open(
           `https://vimeo.com/${p.id}`,
           '_blank',
           'noopener,noreferrer'
         );
+
       }
     );
 
@@ -870,46 +866,44 @@ projects.forEach(
 
 
     cards.push({
-      el:card,
-      index:i,
-      hoverAmount:0
+      el: card,
+      index: i,
+      hoverAmount: 0
     });
 
   }
 );
 
 
-/* RENDER */
+/* =========================
+   RENDER
+========================= */
 
 function render(
-  now=performance.now()
-){
+  now = performance.now()
+) {
 
-  if(
-    introStart===null
-  ){
+  if (introStart === null) {
 
-    introStart=now;
+    introStart = now;
 
   }
 
 
   const progress =
     Math.min(
-      (now-introStart) /
+      (now - introStart) /
       introDuration,
       1
     );
 
 
-  if(
-    progress<1
-  ){
+  if (progress < 1) {
 
     const eased =
       1 -
       Math.pow(
-        1-progress,
+        1 - progress,
         3.8
       );
 
@@ -920,22 +914,22 @@ function render(
       Math.PI *
       2;
 
-  }else{
+  } else {
 
     rotation +=
       scrollVelocity;
 
 
-    scrollVelocity *= .94;
+    scrollVelocity *= 0.94;
 
 
-    if(
+    if (
       Math.abs(
         scrollVelocity
-      ) < .000003
-    ){
+      ) < 0.000003
+    ) {
 
-      scrollVelocity=0;
+      scrollVelocity = 0;
 
     }
 
@@ -943,11 +937,11 @@ function render(
 
 
   const scaleIntro =
-    progress<1
+    progress < 1
       ? introStartScale +
-        (1-introStartScale) *
+        (1 - introStartScale) *
         Math.min(
-          progress*1.15,
+          progress * 1.15,
           1
         )
       : 1;
@@ -955,7 +949,7 @@ function render(
 
   const fade =
     Math.min(
-      progress*2.2,
+      progress * 2.2,
       1
     );
 
@@ -969,7 +963,7 @@ function render(
       620,
       Math.min(
         900,
-        width*.43
+        width * 0.43
       )
     );
 
@@ -979,17 +973,17 @@ function render(
       85,
       Math.min(
         135,
-        width*.065
+        width * 0.065
       )
     );
 
 
   cards.forEach(
-    card=>{
+    card => {
 
       const angle =
         rotation +
-        (card.index/count) *
+        (card.index / count) *
         Math.PI *
         2;
 
@@ -1000,21 +994,21 @@ function render(
 
 
       const y =
-        -(1-Math.cos(angle)) *
+        -(1 - Math.cos(angle)) *
         radiusY;
 
 
       const depth =
-        (Math.cos(angle)+1)/2;
+        (Math.cos(angle) + 1) / 2;
 
 
       const scale =
-        (.62+depth*.48) *
+        (0.62 + depth * 0.48) *
         scaleIntro;
 
 
       const opacity =
-        (.62+depth*.38) *
+        (0.62 + depth * 0.38) *
         fade;
 
 
@@ -1030,12 +1024,12 @@ function render(
         (
           targetHover -
           card.hoverAmount
-        ) * .12;
+        ) * 0.12;
 
 
       const hoverScale =
         1 +
-        card.hoverAmount*.30;
+        card.hoverAmount * 0.30;
 
 
       card.el.style.transform =
@@ -1045,7 +1039,7 @@ function render(
           0
         )
         scale(
-          ${scale*hoverScale}
+          ${scale * hoverScale}
         )`;
 
 
@@ -1055,10 +1049,10 @@ function render(
 
       card.el.style.zIndex =
         Math.round(
-          depth*1000
+          depth * 1000
         ) +
         (
-          card.hoverAmount>.01
+          card.hoverAmount > 0.01
             ? 1000
             : 0
         );
@@ -1069,7 +1063,7 @@ function render(
 
   hint.classList.toggle(
     'visible',
-    progress>=1
+    progress >= 1
   );
 
 
@@ -1080,21 +1074,23 @@ function render(
 }
 
 
-/* NAVIGATION */
+/* =========================
+   NAVIGATION
+========================= */
 
 function nudge(
   direction
-){
+) {
 
   scrollVelocity +=
-    direction*.025;
+    direction * 0.025;
 
 
   scrollVelocity =
     Math.max(
-      -.055,
+      -0.055,
       Math.min(
-        .055,
+        0.055,
         scrollVelocity
       )
     );
@@ -1106,7 +1102,7 @@ document
   .getElementById('left')
   .addEventListener(
     'click',
-    ()=>nudge(1)
+    () => nudge(1)
   );
 
 
@@ -1114,22 +1110,24 @@ document
   .getElementById('right')
   .addEventListener(
     'click',
-    ()=>nudge(-1)
+    () => nudge(-1)
   );
 
 
-/* TRACKPAD */
+/* =========================
+   TRACKPAD
+========================= */
 
 window.addEventListener(
   'wheel',
-  e=>{
+  e => {
 
-    if(
-      introStart!==null &&
+    if (
+      introStart !== null &&
       performance.now() -
       introStart <
       introDuration
-    ){
+    ) {
 
       return;
 
@@ -1147,43 +1145,45 @@ window.addEventListener(
 
 
     scrollVelocity +=
-      delta*.00045;
+      delta * 0.00045;
 
 
     scrollVelocity =
       Math.max(
-        -.055,
+        -0.055,
         Math.min(
-          .055,
+          0.055,
           scrollVelocity
         )
       );
 
   },
   {
-    passive:true
+    passive: true
   }
 );
 
 
-/* KEYBOARD */
+/* =========================
+   KEYBOARD
+========================= */
 
 window.addEventListener(
   'keydown',
-  e=>{
+  e => {
 
-    if(
-      e.key==='ArrowLeft'
-    ){
+    if (
+      e.key === 'ArrowLeft'
+    ) {
 
       nudge(1);
 
     }
 
 
-    if(
-      e.key==='ArrowRight'
-    ){
+    if (
+      e.key === 'ArrowRight'
+    ) {
 
       nudge(-1);
 
@@ -1193,7 +1193,9 @@ window.addEventListener(
 );
 
 
-/* START */
+/* =========================
+   START
+========================= */
 
 requestAnimationFrame(
   render
