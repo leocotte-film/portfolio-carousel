@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -22,7 +23,13 @@ body{
   font-family:Arial,Helvetica,sans-serif;
 }
 
-/* HEADER */
+body{
+  position:relative;
+}
+
+/* =========================
+   HEADER
+========================= */
 
 .header{
   position:fixed;
@@ -37,8 +44,12 @@ body{
   pointer-events:none;
 }
 
-.header a{
+.header a,
+.header button{
   pointer-events:auto;
+}
+
+.header a{
   color:#111;
   text-decoration:none;
 }
@@ -64,7 +75,103 @@ body{
   text-transform:uppercase;
 }
 
-/* CAROUSEL */
+/* =========================
+   CONTACT
+========================= */
+
+.contact-button{
+  border:0;
+  background:none;
+  padding:0;
+  margin:0;
+  color:#111;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+
+.contact-button:hover{
+  opacity:.55;
+}
+
+.contact-page{
+  position:fixed;
+  inset:0;
+  background:#fff;
+  z-index:5500;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  opacity:0;
+  visibility:hidden;
+
+  transition:
+    opacity .45s ease,
+    visibility .45s ease;
+}
+
+.contact-page.visible{
+  opacity:1;
+  visibility:visible;
+}
+
+.contact-content{
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+}
+
+.contact-email,
+.contact-instagram{
+  color:#111;
+  text-decoration:none;
+
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:14px;
+  font-weight:400;
+  letter-spacing:.04em;
+
+  transition:opacity .25s ease;
+}
+
+.contact-email:hover,
+.contact-instagram:hover{
+  opacity:.5;
+}
+
+.contact-close{
+  position:fixed;
+  top:28px;
+  right:32px;
+
+  border:0;
+  background:none;
+
+  color:#111;
+
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:22px;
+  font-weight:300;
+  line-height:1;
+
+  cursor:pointer;
+
+  padding:0;
+}
+
+.contact-close:hover{
+  opacity:.5;
+}
+
+/* =========================
+   CAROUSEL
+========================= */
 
 .stage{
   position:absolute;
@@ -74,19 +181,30 @@ body{
   height:0;
 }
 
-/* CARDS */
+/* =========================
+   CARDS
+========================= */
 
 .card{
   position:absolute;
+
   width:220px;
   height:150px;
+
   left:-110px;
   top:-75px;
+
   overflow:hidden;
+
   cursor:pointer;
+
   background:#eee;
+
   will-change:transform,opacity;
-  box-shadow:0 8px 30px rgba(0,0,0,.08);
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.08);
+
   transition:
     box-shadow .45s ease,
     filter .45s ease;
@@ -95,44 +213,62 @@ body{
 .card img{
   width:100%;
   height:100%;
+
   display:block;
+
   object-fit:cover;
-  transition:filter .45s ease;
+
+  transition:
+    filter .45s ease;
 }
 
 .card-info{
   position:absolute;
+
   left:0;
   right:0;
   bottom:0;
+
   padding:18px 10px 12px;
+
   color:#fff;
+
   background:linear-gradient(
     transparent,
     rgba(0,0,0,.72)
   );
+
   opacity:0;
-  transition:opacity .45s ease;
+
+  transition:
+    opacity .45s ease;
+
   pointer-events:none;
 }
 
 .card-title{
   font-size:9px;
   line-height:1.25;
+
   letter-spacing:.015em;
+
   white-space:nowrap;
 }
 
 .card-director{
   margin-top:4px;
+
   font-size:8px;
   line-height:1.25;
+
   opacity:.82;
+
   white-space:nowrap;
 }
 
 .card.hovered{
-  box-shadow:0 20px 55px rgba(0,0,0,.18);
+  box-shadow:
+    0 20px 55px rgba(0,0,0,.18);
 }
 
 .card.hovered .card-info{
@@ -143,21 +279,32 @@ body{
   filter:brightness(.86);
 }
 
-/* ARROWS */
+/* =========================
+   ARROWS
+========================= */
 
 .arrow{
   position:fixed;
+
   top:50%;
+
   transform:translateY(-50%);
+
   border:0;
   background:transparent;
+
   color:#111;
+
   font-size:28px;
   font-weight:300;
   line-height:1;
+
   cursor:pointer;
+
   z-index:5000;
+
   opacity:.7;
+
   padding:10px;
 }
 
@@ -169,19 +316,31 @@ body{
   right:24px;
 }
 
-/* HINT */
+/* =========================
+   HINT
+========================= */
 
 .hint{
   position:fixed;
+
   bottom:22px;
   left:50%;
+
   transform:translateX(-50%);
+
   font-size:10px;
+
   letter-spacing:.08em;
+
   text-transform:uppercase;
+
   color:#111;
+
   opacity:0;
-  transition:opacity .8s ease;
+
+  transition:
+    opacity .8s ease;
+
   z-index:5000;
 }
 
@@ -189,12 +348,14 @@ body{
   opacity:.45;
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:700px){
 
   .header{
-    padding:20px 20px;
+    padding:20px;
   }
 
   .header-left{
@@ -206,7 +367,8 @@ body{
   }
 
   .contact,
-  .work{
+  .work,
+  .contact-button{
     font-size:10px;
   }
 
@@ -217,6 +379,7 @@ body{
   .card{
     width:170px;
     height:116px;
+
     left:-85px;
     top:-58px;
   }
@@ -240,65 +403,142 @@ body{
   .arrow.right{
     right:10px;
   }
+
+  .contact-close{
+    top:20px;
+    right:20px;
+  }
+
+  .contact-email,
+  .contact-instagram{
+    font-size:12px;
+  }
+
 }
 
 </style>
+
 </head>
 
 <body>
+
+<!-- =========================
+     HEADER
+========================= -->
 
 <header class="header">
 
   <div class="header-left">
 
-    <a
-      class="work"
-      href="https://leocotte.com/work-2"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Work
-    </a>
+```
+<a
+  class="work"
+  href="https://vimeo.com/leocotte"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Work
+</a>
 
-    <a
-      class="contact"
-      href="https://leocotte.com/contact"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Contact
-    </a>
+<button
+  class="contact-button"
+  id="contactButton"
+  type="button"
+>
+  Contact
+</button>
+```
 
   </div>
 
-  <a
-    class="name"
-    href="https://leocotte.com/"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    Léo Cotte
+<a
+class="name"
+href="https://leocotte.com/"
+target="_blank"
+rel="noopener noreferrer"
+
+>
+
+```
+Léo Cotte
+```
+
   </a>
 
 </header>
 
-<div class="stage" id="stage"></div>
+<!-- =========================
+     CONTACT PAGE
+========================= -->
+
+<div
+  class="contact-page"
+  id="contactPage"
+>
+
+  <div class="contact-content">
+
+```
+<a
+  class="contact-email"
+  href="mailto:leocotte.film@gmail.com"
+>
+  leocotte.film@gmail.com
+</a>
+
+<a
+  class="contact-instagram"
+  href="https://www.instagram.com/leo_cotte/"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  @leo_cotte
+</a>
+```
+
+  </div>
 
 <button
-  class="arrow left"
-  id="left"
-  aria-label="Previous"
+class="contact-close"
+id="contactClose"
+aria-label="Close contact"
+
 >
-  ‹
-</button>
+
+```
+×
+```
+
+  </button>
+
+</div>
+
+<!-- =========================
+     CAROUSEL
+========================= -->
+
+<div
+  class="stage"
+  id="stage"
+></div>
 
 <button
-  class="arrow right"
-  id="right"
-  aria-label="Next"
+class="arrow left"
+id="left"
+aria-label="Previous"
+
 >
-  ›
-</button>
+
+‹ </button>
+
+<button
+class="arrow right"
+id="right"
+aria-label="Next"
+
+>
+
+› </button>
 
 <div
   class="hint"
@@ -403,35 +643,107 @@ const projects = [
 
 ];
 
-const stage = document.getElementById('stage');
-const hint = document.getElementById('hint');
 
-const count = projects.length;
+const stage =
+  document.getElementById('stage');
+
+const hint =
+  document.getElementById('hint');
+
+const count =
+  projects.length;
 
 const targetIndex = 12;
 
 const targetRotation =
-  -(targetIndex / count) * Math.PI * 2;
+  -(targetIndex / count) *
+  Math.PI * 2;
 
 let rotation = 0;
+
 let scrollVelocity = 0;
+
 let introStart = null;
 
 const introDuration = 4200;
+
 const introStartScale = .35;
 
 const cards = [];
 
 
-/* CREATE CARDS */
+/* =========================
+   CONTACT
+========================= */
+
+const contactButton =
+  document.getElementById(
+    'contactButton'
+  );
+
+const contactPage =
+  document.getElementById(
+    'contactPage'
+  );
+
+const contactClose =
+  document.getElementById(
+    'contactClose'
+  );
+
+
+contactButton.addEventListener(
+  'click',
+  ()=>{
+    contactPage.classList.add(
+      'visible'
+    );
+  }
+);
+
+
+contactClose.addEventListener(
+  'click',
+  ()=>{
+    contactPage.classList.remove(
+      'visible'
+    );
+  }
+);
+
+
+window.addEventListener(
+  'keydown',
+  (event)=>{
+
+    if(
+      event.key === 'Escape'
+    ){
+
+      contactPage.classList.remove(
+        'visible'
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================
+   CREATE CARDS
+========================= */
 
 projects.forEach((p,i)=>{
 
-  const card = document.createElement('div');
+  const card =
+    document.createElement('div');
 
   card.className = 'card';
 
+
   card.innerHTML = `
+
     <img
       src="https://vumbnail.com/${p.id}.jpg"
       alt="${p.title}"
@@ -448,21 +760,29 @@ projects.forEach((p,i)=>{
       </div>
 
     </div>
+
   `;
+
 
   card.addEventListener(
     'mouseenter',
     ()=>{
-      card.classList.add('hovered');
+      card.classList.add(
+        'hovered'
+      );
     }
   );
+
 
   card.addEventListener(
     'mouseleave',
     ()=>{
-      card.classList.remove('hovered');
+      card.classList.remove(
+        'hovered'
+      );
     }
   );
+
 
   card.addEventListener(
     'click',
@@ -475,7 +795,9 @@ projects.forEach((p,i)=>{
     }
   );
 
+
   stage.appendChild(card);
+
 
   cards.push({
     el:card,
@@ -486,46 +808,66 @@ projects.forEach((p,i)=>{
 });
 
 
-/* RENDER */
+/* =========================
+   RENDER
+========================= */
 
-function render(now=performance.now()){
+function render(
+  now=performance.now()
+){
 
-  if(introStart===null){
+  if(
+    introStart===null
+  ){
+
     introStart=now;
+
   }
+
 
   const progress =
     Math.min(
-      (now-introStart)/introDuration,
+      (now-introStart) /
+      introDuration,
       1
     );
 
 
-  /* INTRO */
-
-  if(progress<1){
+  if(
+    progress<1
+  ){
 
     const eased =
-      1-Math.pow(
+      1 -
+      Math.pow(
         1-progress,
         3.8
       );
 
+
     rotation =
       targetRotation +
-      eased * Math.PI * 2;
+      eased *
+      Math.PI *
+      2;
 
   }else{
 
-    rotation += scrollVelocity;
+    rotation +=
+      scrollVelocity;
+
 
     scrollVelocity *= .94;
 
+
     if(
-      Math.abs(scrollVelocity)
-      < .000003
+      Math.abs(
+        scrollVelocity
+      ) < .000003
     ){
+
       scrollVelocity=0;
+
     }
 
   }
@@ -535,8 +877,12 @@ function render(now=performance.now()){
     progress<1
       ? introStartScale +
         (1-introStartScale) *
-        Math.min(progress*1.15,1)
+        Math.min(
+          progress*1.15,
+          1
+        )
       : 1;
+
 
   const fade =
     Math.min(
@@ -545,10 +891,9 @@ function render(now=performance.now()){
     );
 
 
-  /* GEOMETRY */
-
   const width =
     window.innerWidth;
+
 
   const radiusX =
     Math.max(
@@ -558,6 +903,7 @@ function render(now=performance.now()){
         width*.43
       )
     );
+
 
   const radiusY =
     Math.max(
@@ -569,65 +915,87 @@ function render(now=performance.now()){
     );
 
 
-  cards.forEach(card=>{
+  cards.forEach(
+    card=>{
 
-    const angle =
-      rotation +
-      (card.index/count) *
-      Math.PI * 2;
-
-    const x =
-      Math.sin(angle) *
-      radiusX;
-
-    const y =
-      -(1-Math.cos(angle)) *
-      radiusY;
-
-    const depth =
-      (Math.cos(angle)+1)/2;
-
-    const scale =
-      (.62+depth*.48) *
-      scaleIntro;
-
-    const opacity =
-      (.62+depth*.38) *
-      fade;
+      const angle =
+        rotation +
+        (card.index/count) *
+        Math.PI *
+        2;
 
 
-    /* HOVER */
-
-    const targetHover =
-      card.el.classList.contains('hovered')
-        ? 1
-        : 0;
-
-    card.hoverAmount +=
-      (targetHover-card.hoverAmount)
-      * .12;
-
-    const hoverScale =
-      1 +
-      card.hoverAmount*.30;
+      const x =
+        Math.sin(angle) *
+        radiusX;
 
 
-    card.el.style.transform =
-      `translate3d(${x}px,${y}px,0)
-       scale(${scale*hoverScale})`;
+      const y =
+        -(1-Math.cos(angle)) *
+        radiusY;
 
-    card.el.style.opacity =
-      opacity;
 
-    card.el.style.zIndex =
-      Math.round(depth*1000) +
-      (
-        card.hoverAmount>.01
-          ? 1000
-          : 0
-      );
+      const depth =
+        (Math.cos(angle)+1)/2;
 
-  });
+
+      const scale =
+        (.62+depth*.48) *
+        scaleIntro;
+
+
+      const opacity =
+        (.62+depth*.38) *
+        fade;
+
+
+      const targetHover =
+        card.el.classList.contains(
+          'hovered'
+        )
+          ? 1
+          : 0;
+
+
+      card.hoverAmount +=
+        (
+          targetHover -
+          card.hoverAmount
+        ) * .12;
+
+
+      const hoverScale =
+        1 +
+        card.hoverAmount*.30;
+
+
+      card.el.style.transform =
+        `translate3d(
+          ${x}px,
+          ${y}px,
+          0
+        )
+        scale(
+          ${scale*hoverScale}
+        )`;
+
+
+      card.el.style.opacity =
+        opacity;
+
+
+      card.el.style.zIndex =
+        Math.round(
+          depth*1000
+        ) +
+        (
+          card.hoverAmount>.01
+            ? 1000
+            : 0
+        );
+
+    }
+  );
 
 
   hint.classList.toggle(
@@ -635,17 +1003,25 @@ function render(now=performance.now()){
     progress>=1
   );
 
-  requestAnimationFrame(render);
+
+  requestAnimationFrame(
+    render
+  );
 
 }
 
 
-/* NAVIGATION */
+/* =========================
+   NAVIGATION
+========================= */
 
-function nudge(direction){
+function nudge(
+  direction
+){
 
   scrollVelocity +=
     direction*.025;
+
 
   scrollVelocity =
     Math.max(
@@ -658,12 +1034,14 @@ function nudge(direction){
 
 }
 
+
 document
   .getElementById('left')
   .addEventListener(
     'click',
     ()=>nudge(1)
   );
+
 
 document
   .getElementById('right')
@@ -673,7 +1051,9 @@ document
   );
 
 
-/* TRACKPAD */
+/* =========================
+   TRACKPAD
+========================= */
 
 window.addEventListener(
   'wheel',
@@ -681,11 +1061,15 @@ window.addEventListener(
 
     if(
       introStart!==null &&
-      performance.now()-introStart<
+      performance.now() -
+      introStart <
       introDuration
     ){
+
       return;
+
     }
+
 
     const delta =
       Math.max(
@@ -696,8 +1080,10 @@ window.addEventListener(
         )
       );
 
+
     scrollVelocity +=
       delta*.00045;
+
 
     scrollVelocity =
       Math.max(
@@ -709,31 +1095,48 @@ window.addEventListener(
       );
 
   },
-  {passive:true}
+  {
+    passive:true
+  }
 );
 
 
-/* KEYBOARD */
+/* =========================
+   KEYBOARD
+========================= */
 
 window.addEventListener(
   'keydown',
   e=>{
 
-    if(e.key==='ArrowLeft'){
+    if(
+      e.key==='ArrowLeft'
+    ){
+
       nudge(1);
+
     }
 
-    if(e.key==='ArrowRight'){
+
+    if(
+      e.key==='ArrowRight'
+    ){
+
       nudge(-1);
+
     }
 
   }
 );
 
 
-/* START */
+/* =========================
+   START
+========================= */
 
-requestAnimationFrame(render);
+requestAnimationFrame(
+  render
+);
 
 </script>
 
