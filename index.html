@@ -644,6 +644,19 @@
     const introStartScale = 0.35;
 
 
+    /*
+      CACHE-BUSTING POUR LES MINIATURES
+
+      Le paramètre "v" change à chaque chargement
+      de la page. Le navigateur considère donc
+      l'image comme une nouvelle URL et ne réutilise
+      pas automatiquement son ancienne copie.
+    */
+
+    const thumbnailVersion =
+      Date.now();
+
+
     /* CREATE CARDS */
 
     projects.forEach(
@@ -654,9 +667,14 @@
 
         card.className = "card";
 
+
+        const thumbnail =
+          `https://vumbnail.com/${project.id}.jpg?v=${thumbnailVersion}`;
+
+
         card.innerHTML = `
           <img
-            src="https://vumbnail.com/${project.id}.jpg"
+            src="${thumbnail}"
             alt="${project.title}"
             draggable="false"
           >
