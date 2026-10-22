@@ -1,18 +1,20 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <link rel="preconnect" href="https://player.vimeo.com">
+  <link rel="preconnect" href="https://i.vimeocdn.com">
+  <link rel="preconnect" href="https://f.vimeocdn.com">
+  <link rel="preconnect" href="https://vod-adaptive.akamaized.net">
   <title>LÉO COTTE</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html,
-    body {
+    html, body {
       margin: 0;
       padding: 0;
       width: 100%;
@@ -23,11 +25,7 @@
       font-family: Arial, Helvetica, sans-serif;
     }
 
-    body {
-      position: relative;
-    }
-
-    /* HEADER */
+    body { position: relative; }
 
     header {
       position: fixed;
@@ -50,9 +48,7 @@
       pointer-events: auto;
     }
 
-    .header-link,
-    .name {
-      font-family: Arial, Helvetica, sans-serif;
+    .header-link, .name {
       font-size: 11px;
       line-height: 1;
       text-decoration: none;
@@ -70,7 +66,6 @@
 
     .name {
       font-weight: 700 !important;
-      color: #000;
       pointer-events: auto;
     }
 
@@ -98,9 +93,7 @@
       background: #eee;
       transform-origin: center center;
       will-change: transform, opacity;
-      transition:
-        box-shadow 0.45s ease,
-        filter 0.45s ease;
+      transition: box-shadow 0.45s ease, filter 0.45s ease;
     }
 
     .card img {
@@ -108,7 +101,6 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: brightness(1);
       transition: filter 0.45s ease;
       user-select: none;
       -webkit-user-drag: none;
@@ -118,9 +110,7 @@
       box-shadow: 0 20px 55px rgba(0, 0, 0, 0.18);
     }
 
-    .card.hovered img {
-      filter: brightness(0.86);
-    }
+    .card.hovered img { filter: brightness(0.86); }
 
     .card-info {
       position: absolute;
@@ -129,19 +119,13 @@
       bottom: 0;
       padding: 16px 10px 10px;
       color: #fff;
-      background: linear-gradient(
-        to top,
-        rgba(0, 0, 0, 0.68),
-        rgba(0, 0, 0, 0)
-      );
+      background: linear-gradient(to top, rgba(0,0,0,.68), transparent);
       opacity: 0;
       transition: opacity 0.45s ease;
       pointer-events: none;
     }
 
-    .card.hovered .card-info {
-      opacity: 1;
-    }
+    .card.hovered .card-info { opacity: 1; }
 
     .card-title {
       font-size: 9px;
@@ -159,7 +143,7 @@
       opacity: 0.85;
     }
 
-    /* ARROWS */
+    /* FLÈCHES DU CARROUSEL */
 
     .arrow {
       position: fixed;
@@ -172,7 +156,6 @@
       border: 0;
       background: transparent;
       color: #000;
-      font-family: Arial, Helvetica, sans-serif;
       font-size: 28px;
       font-weight: 300;
       line-height: 60px;
@@ -182,17 +165,9 @@
       transition: opacity 0.2s ease;
     }
 
-    .arrow:hover {
-      opacity: 1;
-    }
-
-    .arrow-left {
-      left: 24px;
-    }
-
-    .arrow-right {
-      right: 24px;
-    }
+    .arrow:hover { opacity: 1; }
+    .arrow-left { left: 24px; }
+    .arrow-right { right: 24px; }
 
     /* HINT */
 
@@ -211,9 +186,7 @@
       pointer-events: none;
     }
 
-    .hint.visible {
-      opacity: 0.5;
-    }
+    .hint.visible { opacity: 0.5; }
 
     /* CONTACT */
 
@@ -227,9 +200,7 @@
       background: #fff;
       opacity: 0;
       visibility: hidden;
-      transition:
-        opacity 0.35s ease,
-        visibility 0.35s ease;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
     }
 
     .contact-overlay.active {
@@ -248,23 +219,18 @@
       margin-bottom: 14px;
       font-size: 11px;
       line-height: 1;
-      font-weight: 400;
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
-    .contact-email,
-    .contact-instagram {
+    .contact-email, .contact-instagram {
       font-size: 16px;
       line-height: 1.35;
-      font-weight: 400;
       color: #000;
       text-decoration: none;
     }
 
-    .contact-instagram {
-      margin-top: 2px;
-    }
+    .contact-instagram { margin-top: 2px; }
 
     .contact-close {
       position: absolute;
@@ -277,15 +243,10 @@
       border: none;
       background: transparent;
       color: #000;
-      font-family: Arial, Helvetica, sans-serif;
       font-size: 24px;
       font-weight: 300;
-      line-height: 25px;
-      text-align: center;
       cursor: pointer;
     }
-
-    /* INTRO */
 
     .intro-white {
       position: fixed;
@@ -296,27 +257,159 @@
       opacity: 1;
     }
 
-    /* MOBILE */
+    /* LECTEUR VIDÉO PLEIN ÉCRAN */
+
+    .video-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      z-index: 10000;
+      display: none;
+      background: #000;
+      color: #fff;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .video-overlay.active { display: block; }
+
+    .video-frame {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+    }
+
+    .player-slot {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.08s linear;
+    }
+
+    .player-slot.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .player-slot iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      background: #000;
+    }
+
+    .player-slot.preloaded {
+      opacity: 0;
+      visibility: visible;
+      pointer-events: none;
+    }
+
+    /* L'image de l'ancien lecteur reste affichée pendant la transition. */
+    .player-slot.transition-hold {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: none;
+    }
+
+    .video-close {
+      position: absolute;
+      top: max(12px, env(safe-area-inset-top));
+      right: max(14px, env(safe-area-inset-right));
+      z-index: 5;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #fff;
+      font: 300 32px/1 Arial, Helvetica, sans-serif;
+      cursor: pointer;
+      opacity: 0.9;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* NAVIGATION DANS LE LECTEUR */
+
+    .video-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 14px 12px;
+      border: 0;
+      background: transparent;
+      color: #fff;
+      font: 400 10px/1 Arial, Helvetica, sans-serif;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .video-nav:hover { opacity: 1; }
+
+    .video-nav-left { left: max(16px, env(safe-area-inset-left)); }
+    .video-nav-right { right: max(16px, env(safe-area-inset-right)); }
+
+    .video-nav-arrow {
+      font-size: 25px;
+      line-height: 10px;
+      font-weight: 300;
+      letter-spacing: 0;
+    }
+
+    .video-credits {
+      position: absolute;
+      left: max(28px, env(safe-area-inset-left));
+      bottom: max(25px, env(safe-area-inset-bottom));
+      z-index: 5;
+      max-width: min(75vw, 720px);
+      color: #fff;
+      text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
+      pointer-events: none;
+    }
+
+    .video-title {
+      font-size: 11px;
+      line-height: 1.35;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+
+    .video-director, .video-production {
+      font-size: 10px;
+      line-height: 1.4;
+      font-weight: 400;
+      opacity: 0.88;
+    }
+
+    .video-production:empty { display: none; }
 
     @media (max-width: 700px) {
-
-      header {
-        height: 52px;
-        padding: 0 18px;
-      }
-
-      .header-left {
-        gap: 22px;
-      }
-
-      .header-link,
-      .name {
-        font-size: 10px;
-      }
-
-      .name {
-        font-weight: 700 !important;
-      }
+      header { height: 52px; padding: 0 18px; }
+      .header-left { gap: 22px; }
+      .header-link, .name { font-size: 10px; }
 
       .card {
         width: 170px;
@@ -325,17 +418,9 @@
         margin-top: -58px;
       }
 
-      .card-info {
-        padding: 14px 8px 9px;
-      }
-
-      .card-title {
-        font-size: 8px;
-      }
-
-      .card-director {
-        font-size: 7px;
-      }
+      .card-info { padding: 14px 8px 9px; }
+      .card-title { font-size: 8px; }
+      .card-director { font-size: 7px; }
 
       .arrow {
         width: 32px;
@@ -344,850 +429,675 @@
         line-height: 50px;
       }
 
-      .arrow-left {
-        left: 7px;
-      }
-
-      .arrow-right {
-        right: 7px;
-      }
-
-      .hint {
-        bottom: 18px;
-        font-size: 8px;
-      }
-
-      .contact-email,
-      .contact-instagram {
-        font-size: 15px;
-      }
-
-      .contact-label {
-        font-size: 10px;
-      }
+      .arrow-left { left: 7px; }
+      .arrow-right { right: 7px; }
+      .hint { bottom: 18px; font-size: 8px; }
+      .contact-email, .contact-instagram { font-size: 15px; }
+      .contact-label { font-size: 10px; }
 
       .contact-close {
         left: calc(50% + 125px);
         top: calc(50% - 28px);
         font-size: 23px;
       }
+
+      .video-nav {
+        gap: 5px;
+        padding: 12px 7px;
+        font-size: 9px;
+      }
+
+      .video-nav-left { left: max(5px, env(safe-area-inset-left)); }
+      .video-nav-right { right: max(5px, env(safe-area-inset-right)); }
+
+      .video-nav-arrow { font-size: 22px; }
+
+      .video-credits {
+        left: max(18px, env(safe-area-inset-left));
+        bottom: max(18px, env(safe-area-inset-bottom));
+        max-width: calc(100vw - 36px);
+      }
+
+      .video-title { font-size: 10px; }
+      .video-director, .video-production { font-size: 9px; }
+    }
+
+    @media (orientation: landscape) and (max-height: 500px) {
+      .video-credits { bottom: max(12px, env(safe-area-inset-bottom)); }
+      .video-title { font-size: 9px; }
+      .video-director, .video-production { font-size: 8px; }
     }
   </style>
 </head>
 
 <body>
-
   <header>
-
     <div class="header-left">
-
-      <a
-        class="header-link"
-        href="https://vimeo.com/leocotte"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        WORK
-      </a>
-
-      <button
-        class="header-link"
-        id="contactButton"
-        type="button"
-      >
-        CONTACT
-      </button>
-
+      <a class="header-link" href="https://vimeo.com/leocotte" target="_blank" rel="noopener noreferrer">WORK</a>
+      <button class="header-link" id="contactButton" type="button">CONTACT</button>
     </div>
-
-    <a
-      class="name"
-      href="#"
-      id="homeButton"
-    >
-      LÉO COTTE
-    </a>
-
+    <a class="name" href="#" id="homeButton">LÉO COTTE</a>
   </header>
 
+  <div class="stage" id="stage"></div>
 
-  <div
-    class="stage"
-    id="stage"
-  ></div>
+  <button class="arrow arrow-left" id="arrowLeft" type="button" aria-label="Previous">‹</button>
+  <button class="arrow arrow-right" id="arrowRight" type="button" aria-label="Next">›</button>
+  <div class="hint" id="hint">Scroll to explore</div>
 
-
-  <button
-    class="arrow arrow-left"
-    id="arrowLeft"
-    type="button"
-    aria-label="Previous"
-  >
-    ‹
-  </button>
-
-  <button
-    class="arrow arrow-right"
-    id="arrowRight"
-    type="button"
-    aria-label="Next"
-  >
-    ›
-  </button>
-
-
-  <div
-    class="hint"
-    id="hint"
-  >
-    Scroll to explore
+  <div class="contact-overlay" id="contactOverlay">
+    <div class="contact-content">
+      <div class="contact-label">Contact</div>
+      <a class="contact-email" href="mailto:leocotte.image@gmail.com">leocotte.image@gmail.com</a>
+      <a class="contact-instagram" href="https://www.instagram.com/leo_cotte/" target="_blank" rel="noopener noreferrer">@leo_cotte</a>
+    </div>
+    <button class="contact-close" id="contactClose" type="button" aria-label="Close">×</button>
   </div>
 
+  <div class="intro-white" id="introWhite"></div>
 
-  <div
-    class="contact-overlay"
-    id="contactOverlay"
-  >
+  <div class="video-overlay" id="videoOverlay" aria-hidden="true">
+    <div class="video-frame" id="videoFrame"></div>
 
-    <div class="contact-content">
+    <button class="video-close" id="videoClose" type="button" aria-label="Close video">×</button>
 
-      <div class="contact-label">
-        Contact
-      </div>
-
-      <a
-        class="contact-email"
-        href="mailto:leocotte.image@gmail.com"
-      >
-        leocotte.image@gmail.com
-      </a>
-
-      <a
-        class="contact-instagram"
-        href="https://www.instagram.com/leo_cotte/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        @leo_cotte
-      </a>
-
-    </div>
-
-    <button
-      class="contact-close"
-      id="contactClose"
-      type="button"
-      aria-label="Close"
-    >
-      ×
+    <button class="video-nav video-nav-left" id="videoPrev" type="button" aria-label="Previous project">
+      <span class="video-nav-arrow">‹</span>
+      <span>Prev</span>
     </button>
 
+    <button class="video-nav video-nav-right" id="videoNext" type="button" aria-label="Next project">
+      <span>Next</span>
+      <span class="video-nav-arrow">›</span>
+    </button>
+
+    <div class="video-credits">
+      <div class="video-title" id="videoTitle"></div>
+      <div class="video-director" id="videoDirector"></div>
+      <div class="video-production" id="videoProduction"></div>
+    </div>
   </div>
 
-
-  <div
-    class="intro-white"
-    id="introWhite"
-  ></div>
-
+  <script src="https://player.vimeo.com/api/player.js"></script>
 
   <script>
-
     const projects = [
-
-      {
-        id: "1225990779",
-        title: "THE GIRL FROM - A JOURNEY IN JAPAN",
-        director: "Directed by Léo Cotte"
-      },
-
-      {
-        id: "1225628524",
-        title: "GIRO - WITHE RUSH",
-        director: "Directed by Léo Cotte"
-      },
-
-      {
-        id: "1225972567",
-        title: "WARREN ZAÏRE-EMERY x LOUIS VUITTON",
-        director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
-      },
-
-      {
-        id: "1225623187",
-        title: "LEBONCOIN - L'INVENTAIRE",
-        director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
-      },
-
-      {
-        id: "1225954902",
-        title: "NOREPLY",
-        director: "Directed by Léo Cotte"
-      },
-
-      {
-        id: "1225687477",
-        title: "ST DUPONT - MY MOM'S BAG",
-        director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
-      },
-
-      {
-        id: "1225653579",
-        title: "LIQUIDE IMAGINAIRE - IMAGINARIUM#1",
-        director: "Directed by Léo Cotte"
-      },
-
-      {
-        id: "1225629634",
-        title: "RILES - INTO THE FLAMME",
-        director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
-      },
-
-      {
-        id: "1225653580",
-        title: "LIQUIDE IMAGINAIRE - IMAGINARIUM#2",
-        director: "Directed by Léo Cotte"
-      },
-
-      {
-        id: "1225961767",
-        title: "ST DUPONT - FW 2025",
-        director: "Directed by Léo Cotte"
-      },
-
-      {
-        id: "1225920079",
-        title: "ADIDAS RS15 Pro x Antoine Dupont",
-        director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
-      },
-
-      {
-        id: "1225656943",
-        title: "LIQUIDE IMAGINAIRE - BLANCHE BÊTE",
-        director: "Directed by Léo Cotte"
-      },
-
-      {
-        id: "1225626001",
-        title: "LOUIS VUITTON - FRAGMENT OF HISTORY",
-        director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
-      },
-
-      {
-        id: "1230217532",
-        title: "PARFUMS DE MARLY - BLEU ROI",
-        director: "Directed by Léo Cotte"
-      },
-
-      {
-        id: "1225920065",
-        title: "A L'INTERIEUR - ANTOINE DUPONT",
-        director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)"
-      }
-
+      { id: "1225990779", title: "THE GIRL FROM - A JOURNEY IN JAPAN", director: "Directed by Léo Cotte", production: "" },
+      { id: "1225628524", title: "GIRO - WITHE RUSH", director: "Directed by Léo Cotte", production: "" },
+      { id: "1225972567", title: "WARREN ZAÏRE-ÉMERY x LOUIS VUITTON", director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)", production: "" },
+      { id: "1225623187", title: "LEBONCOIN - L'INVENTAIRE", director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)", production: "" },
+      { id: "1225954902", title: "NOREPLY", director: "Directed by Léo Cotte", production: "" },
+      { id: "1225687477", title: "ST DUPONT - MY MOM'S BAG", director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)", production: "" },
+      { id: "1225653579", title: "LIQUIDE IMAGINAIRE - IMAGINARIUM#1", director: "Directed by Léo Cotte", production: "" },
+      { id: "1225629634", title: "RILES - INTO THE FLAMME", director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)", production: "" },
+      { id: "1225653580", title: "LIQUIDE IMAGINAIRE - IMAGINARIUM#2", director: "Directed by Léo Cotte", production: "" },
+      { id: "1225961767", title: "ST DUPONT - FW 2025", director: "Directed by Léo Cotte", production: "" },
+      { id: "1225920079", title: "ADIDAS RS15 Pro x Antoine Dupont", director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)", production: "" },
+      { id: "1225656943", title: "LIQUIDE IMAGINAIRE - BLANCHE BÊTE", director: "Directed by Léo Cotte", production: "" },
+      { id: "1225626001", title: "LOUIS VUITTON - FRAGMENT OF HISTORY", director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)", production: "" },
+      { id: "1230217532", title: "PARFUMS DE MARLY - BLEU ROI", director: "Directed by Léo Cotte", production: "" },
+      { id: "1225920065", title: "A L'INTERIEUR - ANTOINE DUPONT", director: "Directed by BIFACE (Léo Cotte & Paul Montarlier)", production: "" }
     ];
 
+    const stage = document.getElementById("stage");
+    const hint = document.getElementById("hint");
+    const introWhite = document.getElementById("introWhite");
+    const contactButton = document.getElementById("contactButton");
+    const contactOverlay = document.getElementById("contactOverlay");
+    const contactClose = document.getElementById("contactClose");
+    const homeButton = document.getElementById("homeButton");
+    const arrowLeft = document.getElementById("arrowLeft");
+    const arrowRight = document.getElementById("arrowRight");
 
-    const stage =
-      document.getElementById("stage");
-
-    const hint =
-      document.getElementById("hint");
-
-    const introWhite =
-      document.getElementById("introWhite");
-
-    const contactButton =
-      document.getElementById("contactButton");
-
-    const contactOverlay =
-      document.getElementById("contactOverlay");
-
-    const contactClose =
-      document.getElementById("contactClose");
-
-    const homeButton =
-      document.getElementById("homeButton");
-
-    const arrowLeft =
-      document.getElementById("arrowLeft");
-
-    const arrowRight =
-      document.getElementById("arrowRight");
-
+    const videoOverlay = document.getElementById("videoOverlay");
+    const videoFrame = document.getElementById("videoFrame");
+    const videoClose = document.getElementById("videoClose");
+    const videoPrev = document.getElementById("videoPrev");
+    const videoNext = document.getElementById("videoNext");
+    const videoTitle = document.getElementById("videoTitle");
+    const videoDirector = document.getElementById("videoDirector");
+    const videoProduction = document.getElementById("videoProduction");
 
     let cards = [];
-
     let rotation = 0;
-
     let scrollVelocity = 0;
-
     let introStartTime = null;
-
     let introFinished = false;
+    let currentProjectIndex = 0;
 
+    let activeSlot = null;
+    let preparedSlot = null;
+    let switching = false;
+    let pendingNavigation = 0;
+    let transitionToken = 0;
 
     const targetIndex = 12;
-
-    const count =
-      projects.length;
-
-
-    const targetRotation =
-      -(targetIndex / count) *
-      Math.PI *
-      2;
-
-
+    const count = projects.length;
+    const targetRotation = -(targetIndex / count) * Math.PI * 2;
     const introDuration = 4200;
-
     const introStartScale = 0.35;
 
+    async function getVimeoThumbnail(videoId) {
+      try {
+        const videoUrl = `https://vimeo.com/${videoId}`;
+        const oEmbedUrl = `https://vimeo.com/api/oembed.json?url=${encodeURIComponent(videoUrl)}&width=960`;
+        const response = await fetch(oEmbedUrl);
+        if (!response.ok) throw new Error("Vimeo oEmbed error");
+        const data = await response.json();
+        return data.thumbnail_url || null;
+      } catch (error) {
+        console.warn(`Impossible de récupérer la miniature Vimeo ${videoId}`, error);
+        return null;
+      }
+    }
 
-    /*
-      CHARGEMENT DES MINIATURES VIMEO
+    function createPlayerUrl(project, muted = false) {
+      const params = new URLSearchParams({
+        autoplay: "1",
+        // Toutes les vidéos démarrent en muet pour éviter le blocage autoplay.
+        // Le son est ensuite activé via l'API Vimeo après le démarrage.
+        muted: "1",
+        controls: "0",
+        title: "0",
+        byline: "0",
+        portrait: "0",
+        dnt: "1",
+        playsinline: "1",
+        loop: "1",
+        autopause: "0",
+        responsive: "1"
+      });
 
-      Vimeo fournit directement l'URL de la
-      miniature actuelle via son endpoint oEmbed.
+      return `https://player.vimeo.com/video/${project.id}?${params.toString()}`;
+    }
 
-      On ne passe donc plus par Vumbnail.
-    */
+    function createPlayerSlot(project, muted = false) {
+      const slot = document.createElement("div");
+      slot.className = "player-slot";
 
-    async function getVimeoThumbnail(
-      videoId
-    ) {
+      const iframe = document.createElement("iframe");
+      // Le démarrage muet est autorisé par les navigateurs plus souvent que
+      // l'autoplay avec son. On tentera d'activer le son ensuite.
+      iframe.src = createPlayerUrl(project, true);
+      iframe.title = project.title;
+      iframe.allow = "autoplay; fullscreen; picture-in-picture; encrypted-media";
+      iframe.allowFullscreen = true;
+      iframe.loading = "eager";
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+
+      slot.appendChild(iframe);
+      slot.dataset.projectId = project.id;
+      slot.dataset.projectIndex = String(projects.indexOf(project));
+      slot.dataset.started = "false";
+      slot.dataset.playAttempted = "false";
+
+      // Le script Vimeo est chargé avant ce code. On crée le Player API et
+      // on retient l'événement playing pour les transitions.
+      if (window.Vimeo && window.Vimeo.Player) {
+        const player = new Vimeo.Player(iframe);
+        slot.vimeoPlayer = player;
+
+        player.on("playing", () => {
+          slot.dataset.started = "true";
+          if (slot.onVideoStarted) slot.onVideoStarted();
+        });
+
+        player.on("error", (error) => {
+          console.warn(`Erreur Vimeo pour ${project.title}:`, error);
+        });
+
+        // Le préchargement reste muet et peut démarrer en arrière-plan.
+        if (muted) {
+          player.ready()
+            .then(() => player.setMuted(true))
+            .then(() => player.play())
+            .then(() => { slot.dataset.playAttempted = "true"; })
+            .catch((error) => console.warn("Préchargement Vimeo impossible :", error));
+        }
+      }
+
+      return slot;
+    }
+
+    async function activatePlayer(slot, withSound = true, restartFromBeginning = true) {
+      if (!slot || !slot.vimeoPlayer) return;
+      const player = slot.vimeoPlayer;
+
+      // Lance la demande de son immédiatement pendant le clic utilisateur.
+      // La remise à zéro est ensuite effectuée avant la lecture, pour éviter
+      // de reprendre au milieu d'un préchargement muet.
+      let soundAttempt = Promise.resolve();
+      if (withSound) {
+        soundAttempt = Promise.resolve()
+          .then(() => player.setVolume(1))
+          .then(() => player.setMuted(false))
+          .catch((error) => {
+            console.info("Activation du son refusée au premier essai :", error);
+          });
+      }
 
       try {
+        await player.ready();
 
-        const videoUrl =
-          `https://vimeo.com/${videoId}`;
-
-        const oEmbedUrl =
-          `https://vimeo.com/api/oembed.json?url=${encodeURIComponent(videoUrl)}&width=960`;
-
-        const response =
-          await fetch(
-            oEmbedUrl,
-            {
-              cache: "no-store"
-            }
-          );
-
-        if (!response.ok) {
-          throw new Error(
-            "Vimeo oEmbed error"
-          );
+        if (restartFromBeginning) {
+          try {
+            await player.setCurrentTime(0);
+          } catch (seekError) {
+            console.warn("Impossible de remettre la vidéo au début :", seekError);
+          }
         }
 
-        const data =
-          await response.json();
+        try {
+          await player.play();
+        } catch (playError) {
+          console.warn("Lecture Vimeo bloquée au premier essai :", playError);
+          // Deuxième tentative après la remise à zéro, toujours sans bloquer
+          // la navigation si Vimeo refuse la lecture.
+          try {
+            await player.setMuted(true);
+            await player.play();
+          } catch (retryError) {
+            console.warn("Impossible de démarrer cette vidéo Vimeo :", retryError);
+          }
+        }
 
-        return data.thumbnail_url || null;
+        if (withSound) {
+          await soundAttempt;
+          try {
+            await player.setVolume(1);
+            await player.setMuted(false);
+          } catch (soundError) {
+            console.warn("Le navigateur ou Vimeo n'a pas autorisé le son :", soundError);
+          }
+        }
 
+        slot.dataset.playAttempted = "true";
       } catch (error) {
-
-        console.warn(
-          `Impossible de récupérer la miniature Vimeo ${videoId}`,
-          error
-        );
-
-        return null;
-
+        console.warn("Le lecteur Vimeo n'a pas pu être initialisé :", error);
       }
-
     }
 
+    function disposeSlot(slot) {
+      if (!slot) return;
 
-    /* CREATE CARDS */
+      slot.onVideoStarted = null;
+      const player = slot.vimeoPlayer;
+      slot.vimeoPlayer = null;
 
-    projects.forEach(
-      (project) => {
-
-        const card =
-          document.createElement("div");
-
-        card.className = "card";
-
-
-        card.innerHTML = `
-          <img
-            alt="${project.title}"
-            draggable="false"
-          >
-
-          <div class="card-info">
-
-            <div class="card-title">
-              ${project.title}
-            </div>
-
-            <div class="card-director">
-              ${project.director}
-            </div>
-
-          </div>
-        `;
-
-
-        const image =
-          card.querySelector("img");
-
-
-        /*
-          On charge la miniature directement
-          depuis Vimeo.
-        */
-
-        getVimeoThumbnail(
-          project.id
-        ).then(
-          (thumbnailUrl) => {
-
-            if (thumbnailUrl) {
-
-              image.src =
-                `${thumbnailUrl}?v=${Date.now()}`;
-
-            } else {
-
-              /*
-                Fallback uniquement si Vimeo
-                ne renvoie pas la miniature.
-              */
-
-              image.src =
-                `https://vumbnail.com/${project.id}.jpg?v=${Date.now()}`;
-
-            }
-
-          }
-        );
-
-
-        card.addEventListener(
-          "mouseenter",
-          () => {
-            card.classList.add("hovered");
-          }
-        );
-
-
-        card.addEventListener(
-          "mouseleave",
-          () => {
-            card.classList.remove("hovered");
-          }
-        );
-
-
-        card.addEventListener(
-          "click",
-          () => {
-
-            window.open(
-              `https://vimeo.com/${project.id}`,
-              "_blank",
-              "noopener,noreferrer"
-            );
-
-          }
-        );
-
-
-        card.hoverAmount = 0;
-
-        stage.appendChild(card);
-
-        cards.push(card);
-
+      if (player) {
+        player.pause().catch(() => {});
+        player.destroy().catch(() => {});
       }
-    );
 
+      slot.remove();
+    }
 
-    /* RENDER */
+    function prepareNextProject() {
+      if (!videoOverlay.classList.contains("active")) return;
+
+      const nextIndex = (currentProjectIndex + 1) % projects.length;
+
+      if (
+        (activeSlot && Number(activeSlot.dataset.projectIndex) === nextIndex) ||
+        (preparedSlot && Number(preparedSlot.dataset.projectIndex) === nextIndex)
+      ) {
+        return;
+      }
+
+      if (preparedSlot) {
+        disposeSlot(preparedSlot);
+        preparedSlot = null;
+      }
+
+      const project = projects[nextIndex];
+      preparedSlot = createPlayerSlot(project, true);
+      preparedSlot.classList.add("preloaded");
+      videoFrame.appendChild(preparedSlot);
+    }
+
+    function updateCredits(project) {
+      videoTitle.textContent = project.title;
+      videoDirector.textContent = project.director;
+      videoProduction.textContent = project.production || "";
+    }
+
+    function waitForFirstFrame(slot, timeout = 1800) {
+      if (!slot || slot.dataset.started === "true") {
+        return Promise.resolve(true);
+      }
+
+      return new Promise((resolve) => {
+        let finished = false;
+
+        const finish = (started) => {
+          if (finished) return;
+          finished = true;
+          clearTimeout(timer);
+          slot.onVideoStarted = null;
+          resolve(started);
+        };
+
+        slot.onVideoStarted = () => finish(true);
+
+        // Ne jamais bloquer indéfiniment : après ce délai, on privilégie
+        // l'affichage du nouveau lecteur plutôt qu'un écran noir prolongé.
+        const timer = setTimeout(() => finish(false), timeout);
+
+        // Le lecteur peut avoir démarré entre le premier test et l'écoute.
+        if (slot.dataset.started === "true") finish(true);
+      });
+    }
+
+    async function transitionToSlot(nextSlot, nextIndex, withSound = true) {
+      if (!nextSlot) {
+        switching = false;
+        return;
+      }
+
+      const token = ++transitionToken;
+      const oldSlot = activeSlot;
+      currentProjectIndex = nextIndex;
+      updateCredits(projects[nextIndex]);
+
+      nextSlot.classList.remove("preloaded", "active");
+      nextSlot.classList.add("transition-hold");
+      nextSlot.style.zIndex = "2";
+
+      if (oldSlot) {
+        oldSlot.classList.add("active");
+        oldSlot.style.zIndex = "1";
+      }
+
+      activeSlot = nextSlot;
+      const activation = activatePlayer(nextSlot, withSound);
+
+      try {
+        await waitForFirstFrame(nextSlot, 1800);
+        if (token !== transitionToken || !videoOverlay.classList.contains("active")) return;
+
+        nextSlot.classList.remove("transition-hold");
+        nextSlot.classList.add("active");
+        nextSlot.style.zIndex = "";
+
+        if (oldSlot && oldSlot !== nextSlot) disposeSlot(oldSlot);
+
+        // Ne pas attendre la promesse Vimeo ici : elle peut rester pendante
+        // même lorsque la vidéo est déjà visible, ce qui bloquerait les clics suivants.
+        activation.catch(() => {});
+        prepareNextProject();
+      } finally {
+        // Ne jamais laisser la navigation bloquée si Vimeo ne démarre pas.
+        if (token === transitionToken) switching = false;
+      }
+    }
+
+    async function openVideo(project, projectIndex) {
+      transitionToken++;
+      switching = false;
+      currentProjectIndex = projectIndex;
+      updateCredits(project);
+
+      videoOverlay.classList.add("active");
+      videoOverlay.setAttribute("aria-hidden", "false");
+      document.body.style.background = "#000";
+      document.body.style.overflow = "hidden";
+
+      // Si le projet est déjà préparé, son flux est réutilisé directement.
+      if (
+        preparedSlot &&
+        Number(preparedSlot.dataset.projectIndex) === projectIndex
+      ) {
+        const nextSlot = preparedSlot;
+        preparedSlot = null;
+        activeSlot = nextSlot;
+
+        nextSlot.classList.remove("preloaded");
+        nextSlot.classList.add("active");
+        nextSlot.style.zIndex = "";
+
+        activatePlayer(nextSlot, true);
+
+        prepareNextProject();
+        return;
+      }
+
+      // À l'ouverture initiale, aucun ancien lecteur n'est forcément visible.
+      // On montre le lecteur tout de suite : il n'y a pas d'attente imposée.
+      if (activeSlot) {
+        disposeSlot(activeSlot);
+        activeSlot = null;
+      }
+
+      if (preparedSlot) {
+        disposeSlot(preparedSlot);
+        preparedSlot = null;
+      }
+
+      const slot = createPlayerSlot(project, true);
+      slot.classList.add("active");
+      videoFrame.appendChild(slot);
+      activeSlot = slot;
+
+      activatePlayer(slot, true);
+      prepareNextProject();
+    }
+
+    async function changeVideo(direction) {
+      if (!videoOverlay.classList.contains("active")) return;
+
+      // Si l'utilisateur navigue plus vite que Vimeo ne prépare les lecteurs,
+      // on mémorise les actions au lieu de les perdre.
+      if (switching) {
+        pendingNavigation += direction;
+        // Évite une file d'attente démesurée si l'utilisateur fait défiler longtemps.
+        pendingNavigation = Math.max(-projects.length * 2, Math.min(projects.length * 2, pendingNavigation));
+        return;
+      }
+
+      switching = true;
+
+      const nextIndex = (currentProjectIndex + direction + projects.length) % projects.length;
+      const nextProject = projects[nextIndex];
+      let nextSlot = null;
+
+      try {
+        if (preparedSlot && Number(preparedSlot.dataset.projectIndex) === nextIndex) {
+          nextSlot = preparedSlot;
+          preparedSlot = null;
+        } else {
+          nextSlot = createPlayerSlot(nextProject, true);
+          nextSlot.classList.add("preloaded");
+          videoFrame.appendChild(nextSlot);
+        }
+
+        // L'appel est lancé directement dans le geste utilisateur : cela donne
+        // au navigateur la meilleure chance d'autoriser l'audio sur cette vidéo.
+        // Un seul lancement audio par transition. On ne bloque jamais la
+        // navigation sur une promesse Vimeo qui peut rester pendante.
+        await transitionToSlot(nextSlot, nextIndex, true);
+      } catch (error) {
+        console.error("Impossible de changer de vidéo :", error);
+        if (nextSlot && nextSlot !== activeSlot) disposeSlot(nextSlot);
+      } finally {
+        switching = false;
+
+        // Traite la navigation restante une étape à la fois, une fois la
+        // transition précédente libérée, sans verrouiller définitivement l'UI.
+        if (pendingNavigation !== 0 && videoOverlay.classList.contains("active")) {
+          const queuedDirection = Math.sign(pendingNavigation);
+          pendingNavigation -= queuedDirection;
+          requestAnimationFrame(() => changeVideo(queuedDirection));
+        }
+      }
+    }
+
+    function closeVideo() {
+      transitionToken++;
+      switching = false;
+      pendingNavigation = 0;
+
+      videoOverlay.classList.remove("active");
+      videoOverlay.setAttribute("aria-hidden", "true");
+
+      disposeSlot(activeSlot);
+      disposeSlot(preparedSlot);
+
+      videoFrame.replaceChildren();
+      activeSlot = null;
+      preparedSlot = null;
+
+      document.body.style.background = "#fff";
+      document.body.style.overflow = "";
+    }
+
+    projects.forEach((project, index) => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <img alt="${project.title}" draggable="false">
+        <div class="card-info">
+          <div class="card-title">${project.title}</div>
+          <div class="card-director">${project.director}</div>
+        </div>
+      `;
+
+      const image = card.querySelector("img");
+
+      getVimeoThumbnail(project.id).then((thumbnailUrl) => {
+        image.src = thumbnailUrl || `https://vumbnail.com/${project.id}.jpg`;
+      });
+
+      card.addEventListener("mouseenter", () => card.classList.add("hovered"));
+      card.addEventListener("mouseleave", () => card.classList.remove("hovered"));
+      card.addEventListener("click", () => openVideo(project, index));
+
+      card.hoverAmount = 0;
+      stage.appendChild(card);
+      cards.push(card);
+    });
 
     function render() {
-
-      const width =
-        window.innerWidth;
-
-
-      const radiusX =
-        Math.max(
-          620,
-          Math.min(
-            900,
-            width * 0.43
-          )
-        );
-
-
-      const radiusY =
-        Math.max(
-          85,
-          Math.min(
-            135,
-            width * 0.065
-          )
-        );
-
+      const width = window.innerWidth;
+      const radiusX = Math.max(620, Math.min(900, width * 0.43));
+      const radiusY = Math.max(85, Math.min(135, width * 0.065));
 
       let globalScale = 1;
-
       let introOpacity = 1;
 
-
       if (!introFinished) {
+        const elapsed = performance.now() - introStartTime;
+        const progress = Math.min(elapsed / introDuration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3.8);
 
-        const elapsed =
-          performance.now() -
-          introStartTime;
-
-
-        const progress =
-          Math.min(
-            elapsed / introDuration,
-            1
-          );
-
-
-        const eased =
-          1 -
-          Math.pow(
-            1 - progress,
-            3.8
-          );
-
-
-        rotation =
-          targetRotation +
-          eased *
-          Math.PI *
-          2;
-
-
-        globalScale =
-          introStartScale +
-          (1 - introStartScale) *
-          eased;
-
-
-        introOpacity =
-          0.35 +
-          0.65 * eased;
-
-
-        introWhite.style.opacity =
-          1 - eased;
-
+        rotation = targetRotation + eased * Math.PI * 2;
+        globalScale = introStartScale + (1 - introStartScale) * eased;
+        introOpacity = 0.35 + 0.65 * eased;
+        introWhite.style.opacity = 1 - eased;
 
         if (progress >= 1) {
-
           introFinished = true;
-
-          rotation =
-            targetRotation;
-
+          rotation = targetRotation;
           scrollVelocity = 0;
-
           introWhite.style.opacity = 0;
-
           hint.classList.add("visible");
-
         }
-
-      } else {
-
-        rotation +=
-          scrollVelocity;
-
-
-        scrollVelocity *=
-          0.94;
-
-
-        if (
-          Math.abs(scrollVelocity) <
-          0.000003
-        ) {
-
-          scrollVelocity = 0;
-
-        }
-
+      } else if (
+        !videoOverlay.classList.contains("active") &&
+        !contactOverlay.classList.contains("active")
+      ) {
+        rotation += scrollVelocity;
+        scrollVelocity *= 0.94;
+        if (Math.abs(scrollVelocity) < 0.000003) scrollVelocity = 0;
       }
 
+      cards.forEach((card, index) => {
+        const angle = rotation + (index / count) * Math.PI * 2;
+        const x = Math.sin(angle) * radiusX;
+        const y = -(1 - Math.cos(angle)) * radiusY;
+        const depth = (Math.cos(angle) + 1) / 2;
+        const scale = 0.62 + depth * 0.48;
+        const opacity = 0.62 + depth * 0.38;
+        const targetHover = card.classList.contains("hovered") ? 1 : 0;
 
-      cards.forEach(
-        (card, index) => {
+        card.hoverAmount += (targetHover - card.hoverAmount) * 0.12;
+        const hoverScale = 1 + card.hoverAmount * 0.30;
 
-          const angle =
-            rotation +
-            (index / count) *
-            Math.PI *
-            2;
+        card.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale * hoverScale * globalScale})`;
+        card.style.opacity = opacity * introOpacity;
+        card.style.zIndex = Math.round(depth * 100) + (card.hoverAmount > 0.01 ? 1000 : 0);
+      });
 
-
-          const x =
-            Math.sin(angle) *
-            radiusX;
-
-
-          const y =
-            -(1 - Math.cos(angle)) *
-            radiusY;
-
-
-          const depth =
-            (Math.cos(angle) + 1) / 2;
-
-
-          const scale =
-            0.62 +
-            depth * 0.48;
-
-
-          const opacity =
-            0.62 +
-            depth * 0.38;
-
-
-          const targetHover =
-            card.classList.contains(
-              "hovered"
-            )
-              ? 1
-              : 0;
-
-
-          card.hoverAmount +=
-            (
-              targetHover -
-              card.hoverAmount
-            ) * 0.12;
-
-
-          const hoverScale =
-            1 +
-            card.hoverAmount * 0.30;
-
-
-          card.style.transform = `
-            translate3d(
-              ${x}px,
-              ${y}px,
-              0
-            )
-            scale(
-              ${scale *
-                hoverScale *
-                globalScale}
-            )
-          `;
-
-
-          card.style.opacity =
-            opacity *
-            introOpacity;
-
-
-          card.style.zIndex =
-            Math.round(
-              depth * 100
-            ) +
-            (
-              card.hoverAmount > 0.01
-                ? 1000
-                : 0
-            );
-
-        }
-      );
-
-
-      requestAnimationFrame(
-        render
-      );
-
+      requestAnimationFrame(render);
     }
 
+    window.addEventListener("wheel", (event) => {
+      if (!introFinished || videoOverlay.classList.contains("active") || contactOverlay.classList.contains("active")) return;
+      const delta = Math.max(-80, Math.min(80, event.deltaY));
+      scrollVelocity += delta * 0.00045;
+      scrollVelocity = Math.max(-0.055, Math.min(0.055, scrollVelocity));
+    }, { passive: true });
 
-    /* TRACKPAD */
+    arrowLeft.addEventListener("click", () => {
+      if (!introFinished || videoOverlay.classList.contains("active")) return;
+      scrollVelocity -= 0.025;
+    });
 
-    window.addEventListener(
-      "wheel",
-      (event) => {
+    arrowRight.addEventListener("click", () => {
+      if (!introFinished || videoOverlay.classList.contains("active")) return;
+      scrollVelocity += 0.025;
+    });
 
-        if (!introFinished) {
+    videoPrev.addEventListener("click", () => changeVideo(-1));
+    videoNext.addEventListener("click", () => changeVideo(1));
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        if (videoOverlay.classList.contains("active")) {
+          closeVideo();
           return;
         }
-
-
-        const delta =
-          Math.max(
-            -80,
-            Math.min(
-              80,
-              event.deltaY
-            )
-          );
-
-
-        scrollVelocity +=
-          delta * 0.00045;
-
-
-        scrollVelocity =
-          Math.max(
-            -0.055,
-            Math.min(
-              0.055,
-              scrollVelocity
-            )
-          );
-
-      },
-      {
-        passive: true
-      }
-    );
-
-
-    /* ARROWS */
-
-    arrowLeft.addEventListener(
-      "click",
-      () => {
-
-        if (!introFinished) {
-          return;
-        }
-
-        scrollVelocity -=
-          0.025;
-
-      }
-    );
-
-
-    arrowRight.addEventListener(
-      "click",
-      () => {
-
-        if (!introFinished) {
-          return;
-        }
-
-        scrollVelocity +=
-          0.025;
-
-      }
-    );
-
-
-    /* KEYBOARD */
-
-    window.addEventListener(
-      "keydown",
-      (event) => {
-
-        if (
-          event.key === "Escape" &&
-          contactOverlay.classList.contains(
-            "active"
-          )
-        ) {
-
+        if (contactOverlay.classList.contains("active")) {
           closeContact();
-
-          return;
-
-        }
-
-
-        if (!introFinished) {
           return;
         }
-
-
-        if (
-          event.key === "ArrowLeft"
-        ) {
-
-          scrollVelocity -=
-            0.025;
-
-        }
-
-
-        if (
-          event.key === "ArrowRight"
-        ) {
-
-          scrollVelocity +=
-            0.025;
-
-        }
-
       }
-    );
 
+      if (videoOverlay.classList.contains("active")) {
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          changeVideo(-1);
+        } else if (event.key === "ArrowRight") {
+          event.preventDefault();
+          changeVideo(1);
+        }
+        return;
+      }
 
-    /* CONTACT */
+      if (!introFinished || contactOverlay.classList.contains("active")) return;
+      if (event.key === "ArrowLeft") scrollVelocity -= 0.025;
+      if (event.key === "ArrowRight") scrollVelocity += 0.025;
+    });
 
     function openContact() {
-
-      contactOverlay.classList.add(
-        "active"
-      );
-
+      contactOverlay.classList.add("active");
     }
-
 
     function closeContact() {
-
-      contactOverlay.classList.remove(
-        "active"
-      );
-
+      contactOverlay.classList.remove("active");
     }
 
+    contactButton.addEventListener("click", openContact);
+    contactClose.addEventListener("click", closeContact);
 
-    contactButton.addEventListener(
-      "click",
-      openContact
-    );
+    homeButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      closeContact();
+    });
 
+    videoClose.addEventListener("click", closeVideo);
 
-    contactClose.addEventListener(
-      "click",
-      closeContact
-    );
-
-
-    homeButton.addEventListener(
-      "click",
-      (event) => {
-
-        event.preventDefault();
-
-        closeContact();
-
-      }
-    );
-
-
-    /* START */
-
-    introStartTime =
-      performance.now();
-
-
-    requestAnimationFrame(
-      render
-    );
-
+    introStartTime = performance.now();
+    requestAnimationFrame(render);
   </script>
-
 </body>
 </html>
